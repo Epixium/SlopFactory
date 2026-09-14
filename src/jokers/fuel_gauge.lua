@@ -1,33 +1,47 @@
 SMODS.Joker {
     key = 'fuel_gauge',
-    atlas = 'placeholders',
+    atlas = 'jokers',
     pos = {
-        x = 2,
+        x = 8,
         y = 0
     },
-    rarity = 1,
-    cost = 4,
-    config = { extra = { mult = 5 } },
+    rarity = 2,
+    cost = 6,
+    config = { extra = { Xmult_base = 3, Xmult_loss = 0.5, Xmult = 3 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult } }
+        return { vars = { card.ability.extra.Xmult_base, card.ability.extra.Xmult_loss, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+            -- See note about SMODS Scaling Manipulation on the wiki
+            card.ability.extra.Xmult = card.ability.extra.Xmult - card.ability.extra.Xmult_loss
+            return {
+                message = localize { type = 'variable', key = 'a_xmult_minus', vars = { card.ability.extra.Xmult_loss } },
+                colour = G.C.MULT
+            }
+        end
+        if context.selling_card and context.card.ability.joker and card.ability.extra.Xmult < card.ability.extra.Xmult_base and not context.blueprint then
+            card.ability.extra.Xmult = card.ability.extra.Xmult_base
+            return {
+                message = localize('slfa_fuel_gauge_refuel'),
+            }
+        end
         if context.joker_main then
             return {
-                mult = (G.GAME.current_round.hands_left + 1) * card.ability.extra.mult
+                xmult = card.ability.extra.Xmult
             }
         end
     end,
     joker_display_def = function(JokerDisplay)
         return {
             text = {
-                { text = "+" },
-                { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" },
-            },
-            text_config = { colour = G.C.MULT },
-            calc_function = function(card)
-                card.joker_display_values.mult = (G.GAME.current_round.hands_left * card.ability.extra.mult) or 0
-            end
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" }
+                    }
+                }
+            }
         }
     end,
 }

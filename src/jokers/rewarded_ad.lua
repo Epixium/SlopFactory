@@ -71,10 +71,14 @@ end
 SMODS.Joker {
     key = 'rewarded_ad',
     blueprint_compat = false,
-    atlas = 'placeholders',
+    atlas = 'jokers',
     pos = {
-        x = 4,
-        y = 0
+        x = 1,
+        y = 2
+    },
+    soul_pos = {
+        x = 2,
+        y = 2
     },
     rarity = 3,
     cost = 7,

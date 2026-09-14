@@ -1,9 +1,9 @@
 SMODS.Joker {
     key = 'sad_joker',
-    atlas = 'placeholders',
+    atlas = 'jokers',
     pos = {
-        x = 4,
-        y = 0
+        x = 0,
+        y = 2
     },
     rarity = 3,
     cost = 9,

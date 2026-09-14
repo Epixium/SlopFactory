@@ -7,7 +7,7 @@ SMODS.Joker {
     },
     rarity = 1,
     cost = 6,
-    config = { extra = { dollars = 3 } },
+    config = { extra = { dollars = 2 } },
     loc_vars = function(self, info_queue, card)
         local count = 0
         for _ in pairs(G.GAME.used_vouchers) do count = count + 1 end

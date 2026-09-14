@@ -1,10 +1,10 @@
 SMODS.Joker {
     key = 'red_giant',
     perishable_compat = false,
-    atlas = 'placeholders',
+    atlas = 'jokers',
     pos = {
-        x = 4,
-        y = 0
+        x = 9,
+        y = 1
     },
     rarity = 3,
     cost = 8,

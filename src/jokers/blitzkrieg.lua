@@ -1,8 +1,8 @@
 SMODS.Joker {
     key = 'blitzkrieg',
-    atlas = 'placeholders',
+    atlas = 'jokers',
     pos = {
-        x = 2,
+        x = 9,
         y = 0
     },
     rarity = 1,

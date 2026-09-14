@@ -19,8 +19,8 @@ return {
                     "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips, {C:attention}#3#{C:inactive})"
                 }
             },
-            j_slfa_fuel_gauge = {
-                name = "Fuel Gauge",
+            j_slfa_shadow_puppet = {
+                name = "Shadow Puppet",
                 text = {
                     "{C:mult}+#1#{} Mult for each",
                     "remaining {C:attention}hand{}",
@@ -94,6 +94,15 @@ return {
                     "{X:mult,C:white} X#1# {} Mult on {C:attention}first{}",
                     "{C:attention}hand{} of round if no",
                     "{C:attention}discards{} are used"
+                }
+            },
+            j_slfa_fuel_gauge = {
+                name = "Fuel Gauge",
+                text = {
+                    "{X:mult,C:white} X#1# {} Mult, loses {X:mult,C:white} X#2# {} Mult",
+                    "at end of round",
+                    "Resets when a Joker is {C:attention}sold{}",
+                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)"
                 }
             },
             j_slfa_cuisiner = {
@@ -190,6 +199,7 @@ return {
             k_plus_tag = "+1 Tag",
             slfa_blitzkrieg_active = "Active!",
             slfa_blitzkrieg_inactive = "Inactive",
+            slfa_fuel_gauge_refuel = "Refueled!",
             slfa_rewarded_ad_reroll = "Rerolled!",
             slfa_rewarded_ad_rarity_up = "Rarity Up!",
             slfa_rewarded_ad_rarity_down = "Rarity Down",

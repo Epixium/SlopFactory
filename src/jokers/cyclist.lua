@@ -1,9 +1,9 @@
 SMODS.Joker {
     key = 'cyclist',
     perishable_compat = false,
-    atlas = 'placeholders',
+    atlas = 'jokers',
     pos = {
-        x = 2,
+        x = 7,
         y = 0
     },
     rarity = 1,

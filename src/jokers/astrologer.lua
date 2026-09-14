@@ -1,9 +1,9 @@
 SMODS.Joker {
     key = 'astrologer',
-    atlas = 'placeholders',
+    atlas = 'jokers',
     pos = {
-        x = 3,
-        y = 0
+        x = 7,
+        y = 1
     },
     rarity = 2,
     cost = 6,

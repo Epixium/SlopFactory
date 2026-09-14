@@ -1,10 +1,10 @@
 SMODS.Joker {
     key = 'six_digits',
     blueprint_compat = false,
-    atlas = 'placeholders',
+    atlas = 'jokers',
     pos = {
-        x = 3,
-        y = 0
+        x = 5,
+        y = 1
     },
     rarity = 2,
     cost = 6,

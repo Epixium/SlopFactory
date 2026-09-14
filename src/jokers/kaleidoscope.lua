@@ -36,7 +36,7 @@ SMODS.Joker {
                 { text = ")" }
             },
             retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
-                if held_in_hand or not JokerDisplay.in_scoring(playing_card, scoring_hand) then return 0 end
+                if not scoring_hand then return 0 end
                 local rank = playing_card:get_id()
                 for _, scoring_card in ipairs(scoring_hand) do
                     if scoring_card == playing_card then break end
