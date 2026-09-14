@@ -7,14 +7,32 @@ SMODS.Joker {
     },
     rarity = 2,
     cost = 6,
-    config = { extra = { repetitions = 1 } },
+    config = { extra = { repetitions = 1, scored_cards = {} } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.repetitions } }
     end,
     calculate = function(self, card, context)
-        if context.repetition and context.scoring_hand then
+        if not context.blueprint then
+            if context.before then
+                card.ability.extra.scored_cards = {}
+            end
+            if context.individual and context.cardarea == G.play then
+                local card_already_scored = false
+                for _, scored_card in ipairs(card.ability.extra.scored_cards) do
+                    if context.other_card == scored_card then
+                        card_already_scored = true
+                        break
+                    end
+                end
+                if not card_already_scored then card.ability.extra.scored_cards[#card.ability.extra.scored_cards+1] = context.other_card end
+            end
+            if context.after then
+                card.ability.extra.scored_cards = {}
+            end
+        end
+        if context.repetition then
             local rank = context.other_card:get_id()
-            for _, playing_card in ipairs(context.scoring_hand) do
+            for _, playing_card in ipairs(card.ability.extra.scored_cards) do
                 if playing_card == context.other_card then break end
                 if  (rank == playing_card:get_id())
                 and (context.other_card:is_suit(playing_card.base.suit) or playing_card:is_suit(context.other_card.base.suit))
@@ -35,6 +53,8 @@ SMODS.Joker {
                 { text = localize("k_suit") },
                 { text = ")" }
             },
+            -- this currently does not have compat with scoring cards not in the hand
+            -- i might add this later but im not sure how yet, JD ain't designed for this
             retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
                 if not scoring_hand then return 0 end
                 local rank = playing_card:get_id()
