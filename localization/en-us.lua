@@ -156,6 +156,15 @@ return {
                     "{C:planet}Planet{} card is used"
                 }
             },
+            j_slfa_brown_bricks = {
+                name = "Brown Bricks",
+                text = {
+                    "Allows {C:attention}Full Houses{} to be",
+                    "made with {C:attention}Stone{} cards in",
+                    "place of any {C:attention}used rank{}",
+                    "{C:inactive}(ex. {C:attention}9 {C:inactive}S S {C:attention}4 {C:inactive}S){}"
+                }
+            },
             j_slfa_base_power = {
                 name = "Base Power",
                 text = {
@@ -173,6 +182,16 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
                 }
             },
+            j_slfa_white_joker = {
+                name = "White Joker",
+                text = {
+                    "{X:mult,C:white} X#1# {} Mult for each scoring",
+                    "{C:hearts}#2#{} or {C:diamonds}#3#{} card",
+                    "After hand or discard,",
+                    "{C:hearts}#2#{} or {C:diamonds}#3#{} cards",
+                    "in hand are {C:attention}debuffed{}"
+                }
+            },
             j_slfa_sad_joker = {
                 name = "Sad Joker",
                 text = {
@@ -188,6 +207,14 @@ return {
                     "the {C:attention}Joker{} to the right",
                     "at end of round"
                 }
+            },
+            j_slfa_jokester = {
+                name = "Jokester",
+                text = {
+                    "Copies ability of",
+                    "all {C:attention}Jokers{} with",
+                    "{C:attention}'Joker'{} in their name",
+                }
             }
         }
     },
@@ -195,6 +222,7 @@ return {
         dictionary = {
             k_discarded_ex = "Discarded!",
             k_downgrade_ex = "Downgrade!",
+            k_debuffed_ex = "Debuffed!",
             k_showmeyourpower_ex = "SHOW ME YOUR POWER!",
             k_plus_tag = "+1 Tag",
             slfa_blitzkrieg_active = "Active!",

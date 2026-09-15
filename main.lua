@@ -26,6 +26,8 @@ SMODS.Atlas {
 
 --#region File Loading
 
+assert(SMODS.load_file("src/utils.lua"))()
+
 local jokers_src = SMODS.NFS.getDirectoryItems(SMODS.current_mod.path .. "src/jokers")
 for _, file in ipairs(jokers_src) do
     assert(SMODS.load_file("src/jokers/" .. file))()
@@ -34,7 +36,7 @@ end
 --#endregion
 
 function SMODS.current_mod.reset_game_globals(run_start)
-    if run_start then G.GAME.slop_factory = {} end
+    if run_start then G.GAME.slfa = {} end
     for _, func in ipairs(SlopFactory.resetters) do
         func(run_start)
     end
