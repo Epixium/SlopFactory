@@ -13,7 +13,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.repetitions } }
     end,
     calculate = function(self, card, context)
-        if context.evaluate_poker_hand and not context.blueprint and context.full_hand and #context.full_hand == 2 then
+        if context.evaluate_poker_hand and not context.blueprint and context.full_hand and #context.full_hand == 2 and G.GAME.current_round.hands_left <= 1 then
             local poker_hands = context.poker_hands
             poker_hands['Pair'] = {{context.full_hand[1], context.full_hand[2]}}
             return {
@@ -22,7 +22,7 @@ SMODS.Joker {
                 replace_poker_hands = poker_hands
             }
         end
-        if context.modify_scoring_hand and not context.blueprint and #context.full_hand == 2 then
+        if context.modify_scoring_hand and not context.blueprint and #context.full_hand == 2 and G.GAME.current_round.hands_left == 0 then
             for _, playing_card in ipairs(context.full_hand) do
                 if context.other_card == playing_card then
                     return { add_to_hand = true }
@@ -43,7 +43,7 @@ SMODS.Joker {
                 colour = G.C.PURPLE
             }
         end
-        if context.repetition then
+        if context.repetition and context.cardarea == G.play then
             if G.GAME.current_round.hands_left == 0 and context.full_hand and #context.full_hand == 2 then
                 return {
                     repetitions = card.ability.extra.repetitions
@@ -54,7 +54,7 @@ SMODS.Joker {
     joker_display_def = function(JokerDisplay)
         return {
             retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
-                if held_in_hand or G.GAME.current_round.hands_left > 0 or not next(G.play.cards) or #G.play.cards ~= 2 then return 0 end
+                if held_in_hand or G.GAME.current_round.hands_left > 0 or not G.play or not next(G.play.cards) or #G.play.cards ~= 2 then return 0 end
                 return joker_card.ability.extra.repetitions * JokerDisplay.calculate_joker_triggers(joker_card)
             end
         }
