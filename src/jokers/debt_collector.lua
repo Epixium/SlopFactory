@@ -27,6 +27,7 @@ SMODS.Joker {
     },
     rarity = 2,
     cost = 7,
+    attributes = { 'suit', 'economy', 'debuff' },
     config = { extra = { dollars = 2 } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set = 'Other', key = 'debuffed_playing_card'}
@@ -85,7 +86,7 @@ SMODS.Joker {
                 end)
             }
         end
-        if context.setting_blind then
+        if context.setting_blind and not context.blueprint then
             SlopFactory.update_debuffed()
         end
     end,

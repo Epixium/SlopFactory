@@ -3,7 +3,8 @@ SlopFactory = {
 }
 
 SMODS.current_mod.optional_features = {
-    quantum_enhancements = true
+    quantum_enhancements = true,
+    post_trigger = true
 }
 
 --#region Atlases

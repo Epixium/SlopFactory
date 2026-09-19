@@ -7,6 +7,7 @@ SMODS.Joker {
     },
     rarity = 2,
     cost = 7,
+    attributes = { 'discard', 'economy', 'hand_size' },
     config = { extra = { h_size = 2, dollars = 4 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.dollars, card.ability.extra.h_size } }

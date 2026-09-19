@@ -1,7 +1,7 @@
 -- code based on Cycle from Handsome Devils
 
-local rarity_up_chance = 0.15
-local rarity_down_chance = 0.05
+local rarity_up_chance = 0.25
+local rarity_down_chance = 0.15
 
 local function reroll_joker(card)
 
@@ -82,6 +82,7 @@ SMODS.Joker {
     },
     rarity = 3,
     cost = 7,
+    attributes = { 'joker', 'position', 'lose_economy' },
     config = { extra = { dollars = 3 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.dollars } }

@@ -7,6 +7,7 @@ SMODS.Joker {
     },
     rarity = 2,
     cost = 6,
+    attributes = { 'two', 'three', 'five', 'seven', 'chance', 'tag', 'booster' },
     config = { extra = { odds = 6 } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = { key = 'tag_standard', set = 'Tag' }

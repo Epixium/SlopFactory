@@ -33,18 +33,20 @@ end
 
 SMODS.Joker {
     key = 'jokester',
-    atlas = 'placeholders',
+    atlas = 'jokers',
     pos = {
-        x = 4,
-        y = 0
+        x = 7,
+        y = 2
     },
     rarity = 3,
     cost = 10,
+    attributes = { 'copying', 'position', 'joker' },
     loc_vars = function(self, info_queue, card)
         if card.area and card.area == G.jokers then
             local other_jokers = {}
             for _, joker in ipairs(G.jokers.cards) do
-                if string.find(joker.config.center.name, localize('k_joker')) then
+                local name = localize { type = 'name_text', set = joker.ability.set, key = joker.config.center.key }
+                if string.find(name, localize('k_joker')) or string.find(name, 'Joker') then
                     other_jokers[#other_jokers+1] = joker
                 end
             end
@@ -86,7 +88,8 @@ SMODS.Joker {
     calculate = function(self, card, context)
         local other_jokers = {}
         for _, joker in ipairs(G.jokers.cards) do
-            if string.find(joker.config.center.name, localize('k_joker')) then
+            local name = localize { type = 'name_text', set = joker.ability.set, key = joker.config.center.key }
+            if string.find(name, localize('k_joker')) or string.find(name, 'Joker') then
                 other_jokers[#other_jokers+1] = joker
             end
         end
@@ -100,6 +103,15 @@ SMODS.Joker {
         end
         if #effects == 0 then return end
         return SMODS.merge_effects(effects)
+    end,
+    in_pool = function(self, args)
+        for _, joker in ipairs(G.jokers.cards) do
+            local name = localize { type = 'name_text', set = joker.ability.set, key = joker.config.center.key }
+            if string.find(name, localize('k_joker')) or string.find(name, 'Joker') then
+                return true
+            end
+        end
+        return false
     end,
     --[[
     joker_display_def = function(JokerDisplay)

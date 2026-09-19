@@ -7,6 +7,7 @@ SMODS.Joker {
     },
     rarity = 3,
     cost = 8,
+    attributes = { 'chips', 'xmult', 'hand_type' },
     config = { extra = { chips = 100, Xmult = 3 } },
     loc_vars = function(self, info_queue, card)
         return { vars = {

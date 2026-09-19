@@ -8,6 +8,7 @@ SMODS.Joker {
     },
     rarity = 1,
     cost = 4,
+    attributes = { 'enhancements', 'passive' },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
         info_queue[#info_queue + 1] = G.P_CENTERS.m_mult

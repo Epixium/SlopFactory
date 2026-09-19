@@ -8,6 +8,7 @@ SMODS.Joker {
     },
     rarity = 2,
     cost = 6,
+    attributes = { 'mult', 'shop', 'scaling' },
     config = { extra = { mult = 0, is_active = true } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult } }

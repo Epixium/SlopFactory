@@ -8,6 +8,7 @@ SMODS.Joker {
     },
     rarity = 1,
     cost = 4,
+    attributes = { 'chips', 'hand_type', 'scaling', 'reset' },
     config = { extra = { chips_gain = 52, chips = 0, last_hand = 'slfa_none', last_hand_disp = 'slfa_none' } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips_gain, card.ability.extra.chips, localize(card.ability.extra.last_hand_disp, 'poker_hands') } }

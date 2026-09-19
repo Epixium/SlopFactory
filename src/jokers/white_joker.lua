@@ -1,12 +1,13 @@
 SMODS.Joker {
     key = 'white_joker',
-    atlas = 'placeholders',
+    atlas = 'jokers',
     pos = {
-        x = 4,
-        y = 0
+        x = 6,
+        y = 2
     },
     rarity = 3,
     cost = 8,
+    attributes = { 'xmult', 'hearts', 'diamonds', 'hands', 'discard', 'debuff' },
     config = { extra = { Xmult_per = 1 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult_per, localize('Hearts', 'suits_plural'), localize('Diamonds', 'suits_plural') } }

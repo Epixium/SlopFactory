@@ -7,6 +7,7 @@ SMODS.Joker {
     },
     rarity = 1,
     cost = 5,
+    attributes = { 'mult', 'chance', 'enhancements', 'discard' },
     config = { extra = { mult = 11, odds = 2 } },
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'slfa_picky_joker')

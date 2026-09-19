@@ -7,6 +7,7 @@ SMODS.Joker {
     },
     rarity = 2,
     cost = 6,
+    attributes = { 'suit', 'rank', 'position', 'retrigger' },
     config = { extra = { repetitions = 1, scored_cards = {} } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.repetitions } }

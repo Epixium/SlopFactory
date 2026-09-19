@@ -1,0 +1,29 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+# add forcing nominal
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+function Card:get_nominal(mod)
+'''
+position = 'after'
+payload = '''
+if self.force_nominal then return self.force_nominal + 0.000001*self.unique_val end
+'''
+match_indent = true
+
+# add forcing id
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+function Card:get_id()
+'''
+position = 'after'
+payload = '''
+if self.force_id then return self.force_id end
+'''
+match_indent = true

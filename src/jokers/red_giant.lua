@@ -8,6 +8,7 @@ SMODS.Joker {
     },
     rarity = 3,
     cost = 8,
+    attributes = { 'space', 'xmult', 'consumable', 'on_sell', 'scaling', 'reset' },
     config = { extra = { Xmult_gain = 0.1, Xmult = 1 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult } }

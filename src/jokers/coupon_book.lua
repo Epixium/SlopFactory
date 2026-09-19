@@ -7,6 +7,7 @@ SMODS.Joker {
     },
     rarity = 1,
     cost = 6,
+    attributes = { 'scaling', 'economy', 'shop' },
     config = { extra = { dollars = 2 } },
     loc_vars = function(self, info_queue, card)
         local count = 0

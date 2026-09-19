@@ -35,6 +35,13 @@ return {
                     "cards held in hand"
                 }
             },
+            j_slfa_anchor = {
+                name = "Anchor",
+                text = {
+                    "{C:mult}+#1#{} Mult",
+                    "{C:attention}-#2#{} hand size"
+                }
+            },
             j_slfa_coupon_book = {
                 name = "Coupon Book",
                 text = {
@@ -50,6 +57,26 @@ return {
                     "{C:attention}Bonus{} and {C:attention}Mult{}",
                     "cards count as the",
                     "same {C:attention}Enhancement{}"
+                }
+            },
+            j_slfa_asterisk = {
+                name = "Asterisk",
+                text = {
+                    "The last {C:attention}Wild{}",
+                    "card in played hand",
+                    "counts as {C:attention}any rank{}",
+                    "in {C:attention}poker hands{}",
+                    "{C:inactive,s:0.8}(ex: {C:attention,s:0.8}K K K 2 Wild{}",
+                    "{C:inactive,s:0.8}-> {C:attention,s:0.8}Four of a Kind{C:inactive,s:0.8}){}"
+                }
+            },
+            j_slfa_idea_guy = {
+                name = "Idea Guy",
+                text = {
+                    "{C:attention}Joker{} to the right",
+                    "copies ability of {C:attention}Joker{}",
+                    "to the left instead",
+                    "of using its own"
                 }
             },
             j_slfa_unlucky_joker = {
@@ -131,6 +158,25 @@ return {
                     "card's {C:attention}rank{} and {C:attention}suit{}",
                 }
             },
+            j_slfa_first_prize = {
+                name = "First Prize",
+                text = {
+                    "Retrigger all played cards",
+                    "with the {C:attention}first rank drawn{}",
+                    "this round {C:attention}#1#{} additional times",
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive}){}"
+                }
+            },
+            j_slfa_defibrillator = {
+                name = "Defibrillator",
+                text = {
+                    "If {C:attention}final hand{} of round",
+                    "has only {C:attention}2{} cards, convert",
+                    "the {C:attention}left{} card into the",
+                    "{C:attention}right{} card and retrigger",
+                    "both {C:attention}#1#{} additional times"
+                }
+            },
             j_slfa_six_digits = {
                 name = "Six Digits",
                 text = {
@@ -163,6 +209,34 @@ return {
                     "made with {C:attention}Stone{} cards in",
                     "place of any {C:attention}used rank{}",
                     "{C:inactive}(ex. {C:attention}9 {C:inactive}S S {C:attention}4 {C:inactive}S){}"
+                }
+            },
+            j_slfa_fools_gold = {
+                name = "Fool's Gold",
+                text = {
+                    "{C:attention}Unenhanced{} cards",
+                    "count as {C:attention}Gold{} cards",
+                    "{C:attention}Gold{} cards give {X:mult,C:white} X#1# {} Mult",
+                    "while held in hand"
+                }
+            },
+            j_slfa_still_life = {
+                name = "Still Life",
+                text = {
+                    "{C:attention}Face{} cards are {C:attention}debuffed{}",
+                    "Each played {C:attention}face{} card has",
+                    "a {C:green}#1# in #2#{} chance to give",
+                    "{C:attention}+#3#{} hand size for the round",
+                    "{C:inactive}(Currently {C:attention}+#4#{C:inactive} hand size){}"
+                }
+            },
+            j_slfa_speedrunner = {
+                name = "Speedrunner",
+                text = {
+                    "{C:chips}+#1#{} Chips",
+                    "When {C:attention}Small Blind{} or",
+                    "{C:attention}Big Blind{} is selected,",
+                    "{C:red}self destructs{}"
                 }
             },
             j_slfa_base_power = {
@@ -215,6 +289,25 @@ return {
                     "all {C:attention}Jokers{} with",
                     "{C:attention}'Joker'{} in their name",
                 }
+            },
+            j_slfa_platinum_card = {
+                name = "Platinum Card",
+                text = {
+                    "{C:attention}+#1#{} card slots",
+                    "available in shop",
+                    "{C:green}Rerolls{} cost {C:money}$#2#{} more"
+                }
+            },
+            j_slfa_police_sketch = {
+                name = "Police Sketch",
+                text = {
+                    "Mimics a random",
+                    "{C:attention}unowned{} Joker",
+                    "Sell this card to gain",
+                    "a {C:attention}copy{} of that Joker",
+                    "{s:0.8}Joker changes every hand{}",
+                    "{C:inactive}(Currently {C:attention}#1#{C:inactive})"
+                }
             }
         }
     },
@@ -231,6 +324,8 @@ return {
             slfa_rewarded_ad_reroll = "Rerolled!",
             slfa_rewarded_ad_rarity_up = "Rarity Up!",
             slfa_rewarded_ad_rarity_down = "Rarity Down",
+            slfa_speedrunner_huevo = "Huevo!",
+            slfa_police_sketch_gotem = "Got 'Em!"
         },
         poker_hands = {
             slfa_none = "None"

@@ -1,0 +1,16 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+# add forcing nominal
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+pattern = '''
+SMODS.draw_cards(delta)
+'''
+position = 'at'
+payload = '''
+SMODS.draw_cards(math.clamp(delta, 0, math.max((self.config.card_limits.base or 0) + (self.config.card_limits.mod or 0) - self.config.card_count + delta, 0)))
+'''
+match_indent = true

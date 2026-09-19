@@ -7,6 +7,7 @@ SMODS.Joker {
     },
     rarity = 3,
     cost = 9,
+    attributes = { 'planet', 'consumable', 'generation', 'hands' },
     config = { extra = { score_cap = 2000 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.score_cap } }
