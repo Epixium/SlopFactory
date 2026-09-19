@@ -54,7 +54,7 @@ SMODS.Joker {
     joker_display_def = function(JokerDisplay)
         return {
             retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
-                if held_in_hand or G.GAME.current_round.hands_left > 0 or not next(G.play.c) or #G.play.cards ~= 2 then return 0 end
+                if held_in_hand or G.GAME.current_round.hands_left > 0 or not next(G.play.cards) or #G.play.cards ~= 2 then return 0 end
                 return joker_card.ability.extra.repetitions * JokerDisplay.calculate_joker_triggers(joker_card)
             end
         }
