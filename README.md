@@ -16,6 +16,8 @@ epixiumgpt make me a balatro mod
 
 - requires [Steamodded](https://github.com/Steamodded/smods) to work
 
+*also try [Executioner](https://github.com/Epixium/Executioner)!*
+
 ---
 
 <div align="center">
