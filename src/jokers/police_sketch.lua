@@ -199,7 +199,7 @@ SMODS.find_card = function(key, count_debuffed)
     local ret = find_cards_ref(key, count_debuffed)
     -- discard copying jokers, which can never be in police sketch's pool
     -- this also prevents police sketch from going recursive!
-    if SMODS.has_attribute(G.P_CENTERS[key], 'copying') then return ret end
+    if not G.P_CENTERS[key] or SMODS.has_attribute(G.P_CENTERS[key], 'copying') then return ret end
     -- get all the existing police sketches
     local found_sketches = SMODS.find_card('j_slfa_police_sketch', count_debuffed)
     if next(found_sketches) then

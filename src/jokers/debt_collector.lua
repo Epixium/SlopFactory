@@ -1,21 +1,24 @@
 -- this code is mostly stolen from the Da Capo card in the Paperback mod
 
-local function reset_slfa_debt_collector_suit()
-    G.GAME.slfa.debt_collector = G.GAME.slfa.debt_collector or {}
-    if G.GAME.slfa.debt_collector.done then return end
-    G.GAME.slfa.debt_collector.suit = { suit = 'Spades' }
-    G.GAME.slfa.debt_collector.done = true
+local function slfa_get_random_suit()
     local valid_debt_collector_cards = {}
     for _, playing_card in ipairs(G.playing_cards) do
         if not SMODS.has_no_suit(playing_card) then
             valid_debt_collector_cards[#valid_debt_collector_cards + 1] = playing_card
         end
     end
-    local debt_collector_card = pseudorandom_element(valid_debt_collector_cards,
+    local chosen_card = pseudorandom_element(valid_debt_collector_cards,
         'slfa_debt_collector' .. G.GAME.round_resets.ante)
-    if debt_collector_card then
-        G.GAME.slfa.debt_collector.suit = debt_collector_card.base.suit
-    end
+    return chosen_card and chosen_card.base and chosen_card.base.suit or 'Spades'
+end
+
+local function reset_slfa_debt_collector_suit()
+    G.GAME.slfa.debt_collector = G.GAME.slfa.debt_collector or {}
+    if G.GAME.slfa.debt_collector.done then return end
+    G.GAME.slfa.debt_collector.suit = G.GAME.slfa.debt_collector.upcoming_suit or slfa_get_random_suit()
+    G.GAME.slfa.debt_collector.upcoming_suit = 'Spades'
+    G.GAME.slfa.debt_collector.done = true
+    G.GAME.slfa.debt_collector.upcoming_suit = slfa_get_random_suit()
 end
 
 SMODS.Joker {
@@ -72,8 +75,8 @@ SMODS.Joker {
         if context.before and not context.blueprint then G.GAME.slfa.debt_collector.done = false end
         if context.after and not context.blueprint then
             return {
-                message = localize(G.GAME.slfa.debt_collector.suit, 'suits_plural'),
-                colour = G.C.SUITS[G.GAME.slfa.debt_collector.suit],
+                message = localize(G.GAME.slfa.debt_collector.upcoming_suit, 'suits_plural'),
+                colour = G.C.SUITS[G.GAME.slfa.debt_collector.upcoming_suit],
                 func = (function()
                     G.E_MANAGER:add_event(Event({
                         func = function()

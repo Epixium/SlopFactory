@@ -48,20 +48,16 @@ SMODS.Joker {
         end
     end,
     calculate = function(self, card, context)
-        if context.post_trigger and context.other_card.ability.set == 'Joker' then
-            local left_joker, right_joker = get_side_jokers(card)
-            if not left_joker or not right_joker or not left_joker.config.center.blueprint_compat then return end
-            if context.other_card == left_joker then
-                local ret = SMODS.blueprint_effect(right_joker, left_joker, context.other_context)
-                if ret then
-                    ret.colour = G.C.BLUE
-                    ret.message_card = right_joker
-                    return ret
-                end
-            end
-            if context.other_card == right_joker then
-                EMPTY(context.other_ret)
-            end
+        local left_joker, right_joker = get_side_jokers(card)
+        if not left_joker or not right_joker or not left_joker.config.center.blueprint_compat then return end
+        local ret = SMODS.blueprint_effect(right_joker, left_joker, context)
+        if ret then
+            ret.colour = G.C.BLUE
+            ret.message_card = right_joker
+            return ret
+        end
+        if context.post_trigger and context.other_card == right_joker then
+            EMPTY(context.other_ret)
         end
     end,
     update = function(self, card, dt)
