@@ -1,5 +1,6 @@
 SMODS.Joker {
     key = 'coupon_book',
+    blueprint_compat = false,
     atlas = 'jokers',
     pos = {
         x = 2,

@@ -48,6 +48,9 @@ SMODS.Joker {
         end
     end,
     calculate = function(self, card, context)
+
+        context.selling_self = nil -- idea guy doesn't pass itself when selling
+
         local left_joker, right_joker = get_side_jokers(card)
         if not left_joker or not right_joker or not left_joker.config.center.blueprint_compat then return end
         local ret = SMODS.blueprint_effect(right_joker, left_joker, context)
@@ -59,9 +62,20 @@ SMODS.Joker {
         if context.post_trigger and context.other_card == right_joker then
             EMPTY(context.other_ret)
         end
+        if context.selling_card and context.card == right_joker then
+            right_joker:remove_from_deck() -- manual style
+            card.ability.extra.overridden = nil
+        end
     end,
     update = function(self, card, dt)
         if card.area.config.collection then return false end
+        
+        if card.ability.extra.overridden and
+            card.ability.extra.overridden.getting_sliced or card.ability.extra.dissolve ~= 0
+        then
+            card.ability.extra.overridden = nil
+        end
+        
         local _, right_joker = get_side_jokers(card)
         
         -- un-override the last overridden joker
@@ -77,7 +91,17 @@ SMODS.Joker {
             end
             --SMODS.calculate_context({slfa_idea_guy_debuff = true, other_card = right_joker})
         end
+
         card.ability.extra.overridden = right_joker
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        if card.ability.extra.overridden then
+            card.ability.extra.overridden:add_to_deck(true)
+            if JokerDisplay then
+                card.ability.extra.overridden:initialize_joker_display()
+            end
+            card.ability.extra.overridden = nil
+        end
     end,
     joker_display_def = function(JokerDisplay)
         return {

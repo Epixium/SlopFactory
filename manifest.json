@@ -1,7 +1,7 @@
 {
-    "name": "Slop Factory",
+    "name": "Slop_Factory",
     "description": "adds a collection of jokers for you to play with in your runs",
-    "version_number": "1.0.2",
+    "version_number": "1.0.3",
     "dependencies": [
         "Thunderstore-lovely-0.9.0",
         "Steamodded-Steamodded-26.829.0"

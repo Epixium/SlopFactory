@@ -277,7 +277,7 @@ return {
             j_slfa_rewarded_ad = {
                 name = "Rewarded Ad",
                 text = {
-                    "Lose {C:money}$#1#{} and reroll",
+                    "Lose {C:money}$#1#{} and {C:attention}reroll{}",
                     "the {C:attention}Joker{} to the right",
                     "at end of round"
                 }
@@ -307,6 +307,18 @@ return {
                     "a {C:attention}copy{} of that Joker",
                     "{s:0.8}Joker changes every hand{}",
                     "{C:inactive}(Currently {C:attention}#1#{C:inactive})"
+                }
+            }
+        },
+        Other = {
+            slfa_reroll_joker = {
+                name = "Joker Rerolling",
+                text = {
+                    "Replace a Joker",
+                    "with a new one",
+                    "{C:attention,s:0.8}#1#%{s:0.8} chance to {C:green,s:0.8}increase{s:0.8} rarity",
+                    "{C:attention,s:0.8}#2#%{s:0.8} chance to {C:red,s:0.8}decrease{s:0.8} rarity",
+                    "{C:inactive,s:0.7}(Retains Edition and Stickers)",
                 }
             }
         }

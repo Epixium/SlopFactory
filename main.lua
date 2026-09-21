@@ -1,5 +1,11 @@
 SlopFactory = {
-    resetters = {}
+    resetters = {
+        function(run_start)
+            if run_start then
+                G.GAME.slfa = {}
+            end
+        end
+    }
 }
 
 SMODS.current_mod.optional_features = {

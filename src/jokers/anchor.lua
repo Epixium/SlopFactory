@@ -20,11 +20,9 @@ SMODS.Joker {
         end
     end,
     add_to_deck = function(self, card, from_debuff)
-        print('PENIS')
         G.hand:change_size(-card.ability.extra.h_size)
     end,
     remove_from_deck = function(self, card, from_debuff)
-        print('VAGINA')
         G.hand:change_size(card.ability.extra.h_size)
     end,
     joker_display_def = function(JokerDisplay)

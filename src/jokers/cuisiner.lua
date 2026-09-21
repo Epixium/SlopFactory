@@ -1,5 +1,6 @@
 SMODS.Joker {
     key = 'cuisiner',
+    blueprint_compat = false,
     atlas = 'jokers',
     pos = {
         x = 3,
