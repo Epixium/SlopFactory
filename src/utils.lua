@@ -10,17 +10,18 @@ function SlopFactory.update_debuffed()
     })
 end
 
+local rarities = {"Common", "Uncommon", "Rare", "Legendary"}
+-- stolen from handsome devils
 function SlopFactory.reroll_joker(card, args)
     args = args or {}
     -- rarity check
+    local old_rarity = card.config.center.rarity
     local rarity = args.rarity
     if args.rarity == nil then
         local up_chance, down_chance = args.rarity_up or 0.25, args.rarity_down or 0.15
         local card_rarity = card.config.center.rarity
         local rarity_roll = pseudorandom(pseudoseed('slfa_reroll_rarity' .. (args.seed or '') .. G.GAME.round_resets.ante))
-        print(rarity_roll)
         local delta_rarity = (rarity_roll >= 1-up_chance and 1) or (rarity_roll <= down_chance and -1) or 0
-        print(delta_rarity)
         rarity = (1 <= card_rarity and card_rarity <= 3 and math.max(1, math.min(3, card_rarity + delta_rarity))) or card_rarity
     end
     -- set up the pool with which to roll from
@@ -34,7 +35,13 @@ function SlopFactory.reroll_joker(card, args)
         end
         full_pool = valid_keys
     else
-        full_pool = args.pool or get_current_pool('Joker', rarity, false)
+        local valid_keys = get_current_pool('Joker', rarities[rarity] or rarity, false)
+        for i, key in ipairs(valid_keys) do
+            if key == 'UNAVAILABLE' then
+                table.remove(valid_keys, i)
+            end
+        end
+        full_pool = valid_keys
     end
     if args.attributes then
         local available_pool = {}
@@ -63,29 +70,54 @@ function SlopFactory.reroll_joker(card, args)
         center = G.P_CENTERS[chosen_key]
     end
 
-    -- if i'm stealing from handsome devils might as well leave in the compat
-    --local has_cursed = card.ability and card.ability.hnds_cursed
-    --local curse_data = has_cursed and card.ability.hnds_curse and copy_table(card.ability.hnds_curse) or nil
-
     if center then
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.2,
-            func = function()
-                if card.remove_from_deck and type(card.remove_from_deck) == 'function' then
-                    pcall(card.remove_from_deck, card)
-                end
-                card:set_ability(center, true)
-                card:add_to_deck()
-
-                card:start_materialize()
-                card:juice_up(0.5, 0.3)
-                play_sound('card1', 1, 0.6)
-                return true
+        if args.no_delay then
+            if card.remove_from_deck and type(card.remove_from_deck) == 'function' then
+                pcall(card.remove_from_deck, card)
             end
-        }))
+            card:set_ability(center, true)
+            card:add_to_deck()
+
+            card:start_materialize()
+            card:juice_up(0.5, 0.3)
+            play_sound('card1', 1, 0.6)
+        else
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.2,
+                func = function()
+                    if card.remove_from_deck and type(card.remove_from_deck) == 'function' then
+                        pcall(card.remove_from_deck, card)
+                    end
+                    card:set_ability(center, true)
+                    card:add_to_deck()
+
+                    card:start_materialize()
+                    card:juice_up(0.5, 0.3)
+                    play_sound('card1', 1, 0.6)
+                    return true
+                end
+            }))
+        end
     end
 
-    return card
+    local delta_rarity = (rarity - old_rarity) or nil
+    
+    local message_table = {
+        message = localize((tonumber(delta_rarity) == nil and 'slfa_rewarded_ad_reroll')
+            or (delta_rarity > 0 and 'slfa_rewarded_ad_rarity_up')
+            or (delta_rarity < 0 and 'slfa_rewarded_ad_rarity_down')
+            or 'slfa_rewarded_ad_reroll'),
+        colour = SMODS.Rarities[rarities[rarity] or rarity].badge_colour,
+    }
 
+    return message_table
+
+end
+
+function SlopFactory.load_src(folder_name)
+    local src = SMODS.NFS.getDirectoryItems(SMODS.current_mod.path .. "src/" .. folder_name)
+    for _, file in ipairs(src) do
+        assert(SMODS.load_file("src/" .. folder_name .. "/" .. file))()
+    end
 end

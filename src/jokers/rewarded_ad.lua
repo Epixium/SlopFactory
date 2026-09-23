@@ -14,7 +14,7 @@ SMODS.Joker {
     },
     rarity = 3,
     cost = 7,
-    attributes = { 'joker', 'position', 'lose_economy' },
+    attributes = { 'reroll_joker', 'joker', 'position', 'lose_economy' },
     config = { extra = { dollars = 3 } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = { set = "Other", key = "slfa_reroll_joker", vars = { 25, 15 } }
@@ -26,22 +26,13 @@ SMODS.Joker {
             for i = 1, #G.jokers.cards do
                 if G.jokers.cards[i] == card then other_joker = G.jokers.cards[i + 1] end
             end
-            local new_joker, delta_rarity
+            local message_table
             if other_joker then
-                delta_rarity = -other_joker.config.center.rarity
-                new_joker = SlopFactory.reroll_joker(other_joker)
-                delta_rarity = delta_rarity + new_joker.config.center.rarity
+                message_table = SlopFactory.reroll_joker(other_joker, { seed = 'rewarded_ad' })
             end
-            local rarities = {"Common", "Uncommon", "Rare", "Legendary"}
             return {
                 dollars = -card.ability.extra.dollars,
-                extra = {
-                    message = localize((tonumber(delta_rarity) == nil and 'slfa_rewarded_ad_reroll')
-                        or (delta_rarity > 0 and 'slfa_rewarded_ad_rarity_up')
-                        or (delta_rarity < 0 and 'slfa_rewarded_ad_rarity_down')
-                        or 'slfa_rewarded_ad_reroll'),
-                    colour = SMODS.Rarities[rarities[new_joker.config.center.rarity] or new_joker.config.center.rarity].badge_colour,
-                }
+                extra = message_table
             }
         end
     end,

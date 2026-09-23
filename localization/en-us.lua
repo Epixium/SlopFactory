@@ -1,5 +1,33 @@
 return {
     descriptions = {
+        Back = {
+            b_slfa_orange = {
+                name = "Orange Deck",
+                text = {
+                    "After defeating each",
+                    "{C:attention}Boss Blind{}, {C:attention}reroll{} the",
+                    "rightmost Joker",
+                },
+            },
+        },
+        Sleeve = {
+            sleeve_slfa_orange = {
+                name = "Orange Sleeve",
+                text = {
+                    "After defeating each",
+                    "{C:attention}Boss Blind{}, {C:attention}reroll{} the",
+                    "rightmost Joker",
+                },
+            },
+            sleeve_slfa_orange_alt = {
+                name = "Orange Sleeve",
+                text = {
+                    "After defeating",
+                    "each {C:attention}Blind{}, {C:attention}reroll{} the",
+                    "rightmost Joker",
+                },
+            },
+        },
         Joker = {
             j_slfa_turquoise_joker = {
                 name = "Turquoise Joker",
@@ -307,6 +335,15 @@ return {
                     "a {C:attention}copy{} of that Joker",
                     "{s:0.8}Joker changes every hand{}",
                     "{C:inactive}(Currently {C:attention}#1#{C:inactive})"
+                }
+            }
+        },
+        Tarot = {
+            c_slfa_branch = {
+                name = "The Branch",
+                text = {
+                    "{C:green}#1# in #2#{} chance to",
+                    "{C:attention}reroll{} selected Joker",
                 }
             }
         },

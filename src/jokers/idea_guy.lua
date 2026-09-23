@@ -7,6 +7,29 @@ local function get_side_jokers(card)
     return nil, nil
 end
 
+local function manual_joker_display_shit(card)
+    if card.children.joker_display then
+        card.children.joker_display:remove_text()
+        card.children.joker_display:remove_reminder_text()
+        card.children.joker_display:remove_extra()
+        card.children.joker_display:remove_modifiers()
+    end
+    if card.children.joker_display_small then            
+        card.children.joker_display_small:remove_text()
+        card.children.joker_display_small:remove_reminder_text()
+        card.children.joker_display_small:remove_extra()
+        card.children.joker_display_small:remove_modifiers()
+    end
+    if card.children.joker_display_debuff then
+        card.children.joker_display_debuff:remove_modifiers()
+        card.children.joker_display_debuff:remove_text()
+
+        card.children.joker_display_debuff:add_text(
+            replace_debuff_text or { { text = "" .. localize("k_debuffed"), colour = G.C.UI.TEXT_INACTIVE } },
+            replace_debuff_text_config)
+    end
+end
+
 SMODS.Joker {
     key = 'idea_guy',
     atlas = 'jokers',
@@ -23,7 +46,7 @@ SMODS.Joker {
             local copied_joker
             local overwritten_joker
             for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i] == card then 
+                if G.jokers.cards[i] == card then
                     copied_joker = G.jokers.cards[i - 1]
                     overwritten_joker = G.jokers.cards[i + 1]
                 end
@@ -80,10 +103,9 @@ SMODS.Joker {
         
         -- un-override the last overridden joker
         if card.ability.extra.overridden ~= right_joker then
-            if card.ability.extra.overridden and card.ability.extra.overridden.add_to_deck then
-                card.ability.extra.overridden:add_to_deck(true)
-                if JokerDisplay then
-                    card.ability.extra.overridden:initialize_joker_display()
+            if card.ability.extra.overridden then
+                if card.ability.extra.overridden.add_to_deck then
+                    card.ability.extra.overridden:add_to_deck(true)
                 end
             end
             if right_joker and right_joker.remove_from_deck then
@@ -98,6 +120,7 @@ SMODS.Joker {
         if card.ability.extra.overridden then
             card.ability.extra.overridden:add_to_deck(true)
             if JokerDisplay then
+                manual_joker_display_shit(card.ability.extra.overridden)
                 card.ability.extra.overridden:initialize_joker_display()
             end
             card.ability.extra.overridden = nil
@@ -121,8 +144,13 @@ SMODS.Joker {
                         right_joker.joker_display_stop_calc = true
                     end
                 end
+                if card.joker_display_values.overridden and card.joker_display_values.overridden ~= right_joker then
+                    manual_joker_display_shit(card.joker_display_values.overridden)
+                    card.joker_display_values.overridden:initialize_joker_display()
+                end
                 card.joker_display_values.is_compatible = copied_joker ~= nil
                 card.joker_display_values.blueprint_compat = localize(card.joker_display_values.is_compatible and 'k_compatible' or 'k_incompatible')
+                card.joker_display_values.overridden = right_joker
             end,
             style_function = function(card, text, reminder_text, extra)
                 if reminder_text and reminder_text.children[2] then
