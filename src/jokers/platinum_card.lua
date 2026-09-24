@@ -29,17 +29,19 @@ SMODS.Joker {
         }))
     end,
     remove_from_deck = function(self, card, from_debuff)
+        local shop_size = card.ability.extra.shop_size
+        local reroll_cost = card.ability.extra.reroll_cost
         G.E_MANAGER:add_event(Event({
             func = function()
-                change_shop_size(-card.ability.extra.shop_size)
+                change_shop_size(-shop_size)
                 return true
             end
         }))
         G.E_MANAGER:add_event(Event({
             func = function()
-                G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.reroll_cost
+                G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - reroll_cost
                 G.GAME.current_round.reroll_cost = math.max(0,
-                    G.GAME.current_round.reroll_cost - card.ability.extra.reroll_cost)
+                    G.GAME.current_round.reroll_cost - reroll_cost)
                 return true
             end
         }))

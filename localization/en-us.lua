@@ -4,8 +4,8 @@ return {
             b_slfa_orange = {
                 name = "Orange Deck",
                 text = {
-                    "After defeating each",
-                    "{C:attention}Boss Blind{}, {C:attention}reroll{} the",
+                    "After defeating",
+                    "each {C:attention}Blind{}, {C:attention}reroll{} the",
                     "rightmost Joker",
                 },
             },
@@ -15,16 +15,15 @@ return {
                 name = "Orange Sleeve",
                 text = {
                     "After defeating each",
-                    "{C:attention}Boss Blind{}, {C:attention}reroll{} the",
+                    "{C:attention}Blind{}, {C:attention}reroll{} the",
                     "rightmost Joker",
                 },
             },
             sleeve_slfa_orange_alt = {
                 name = "Orange Sleeve",
                 text = {
-                    "After defeating",
-                    "each {C:attention}Blind{}, {C:attention}reroll{} the",
-                    "rightmost Joker",
+                    "After {C:attention}discard{}, {C:attention}reroll{}",
+                    "the rightmost Joker",
                 },
             },
         },
@@ -68,6 +67,15 @@ return {
                 text = {
                     "{C:mult}+#1#{} Mult",
                     "{C:attention}-#2#{} hand size"
+                }
+            },
+            j_slfa_shopping_cart = {
+                name = "Shopping Cart",
+                text = {
+                    "This Joker gains {C:mult}Mult{}",
+                    "equal to the {C:attention}first purchase{}",
+                    "made in the {C:attention}shop{}",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 }
             },
             j_slfa_coupon_book = {
@@ -117,30 +125,12 @@ return {
                     "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)"
                 }
             },
-            j_slfa_shopping_cart = {
-                name = "Shopping Cart",
-                text = {
-                    "This Joker gains {C:mult}Mult{}",
-                    "equal to the {C:attention}first purchase{}",
-                    "made in the {C:attention}shop{}",
-                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
-                }
-            },
             j_slfa_blitzkrieg = {
                 name = "Blitzkrieg",
                 text = {
                     "{X:red,C:white} X#1# {} Mult if {C:attention}last round{}",
                     "was won in {C:attention}one hand{}",
                     "{C:inactive}#2#{}"
-                }
-            },
-            j_slfa_ace_in_the_hole = {
-                name = "Ace in the Hole",
-                text = {
-                    "Destroy all scoring {C:attention}Aces{}",
-                    "This Joker gains {X:mult,C:white} X#1# {} Mult",
-                    "when an {C:attention}Ace{} is destroyed",
-                    "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
                 }
             },
             j_slfa_lightspeed = {
@@ -265,6 +255,15 @@ return {
                     "When {C:attention}Small Blind{} or",
                     "{C:attention}Big Blind{} is selected,",
                     "{C:red}self destructs{}"
+                }
+            },
+            j_slfa_ace_in_the_hole = {
+                name = "Ace in the Hole",
+                text = {
+                    "Destroy all scoring {C:attention}Aces{}",
+                    "This Joker gains {X:mult,C:white} X#1# {} Mult",
+                    "when an {C:attention}Ace{} is destroyed",
+                    "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
                 }
             },
             j_slfa_base_power = {
