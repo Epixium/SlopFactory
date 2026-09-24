@@ -24,12 +24,14 @@ SMODS.Joker {
                 card.ability.extra.is_active = false
             end
             if context.money_altered and context.amount < 0 and card.ability.extra.is_active then
-                card.ability.extra.mult = card.ability.extra.mult + -context.amount
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "mult",
+                    operation = function(ref_table, ref_value, initial, change)
+                        ref_table[ref_value] = initial + -context.amount * change
+                    end,
+                })
                 card.ability.extra.is_active = false
-                return {
-                    message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } },
-                    colour = G.C.MULT,
-                }
             end
         end
         if context.joker_main then

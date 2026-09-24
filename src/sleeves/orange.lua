@@ -18,7 +18,7 @@ CardSleeves.Sleeve {
             if context.pre_discard then
                 sleeve.ability = { active = true }
             end
-            if context.drawing_cards and sleeve.ability.active then
+            if context.drawing_cards and sleeve.ability and sleeve.ability.active then
                 sleeve.ability.active = nil
                 if G.jokers and G.jokers.cards and #G.jokers.cards > 0 then
                     local joker = G.jokers.cards[#G.jokers.cards]

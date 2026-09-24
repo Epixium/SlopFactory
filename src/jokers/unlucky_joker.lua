@@ -16,17 +16,24 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.pseudorandom_result and not context.blueprint then
             if context.result then
-                card.ability.extra.chips = math.max(card.ability.extra.chips - card.ability.extra.chips_loss, 0)
-                return {
-                    message = localize('k_downgrade_ex'),
-                    colour = G.C.RED
-                }
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = 'chips',
+                    scalar_value = 'chips_loss',
+                    operation = function(ref_table, ref_value, initial, change)
+                        ref_table[ref_value] = math.max(initial - change, 0)
+                    end,
+                    scaling_message = {
+                        message = localize('k_downgrade_ex'),
+                        colour = G.C.RED
+                    }
+                })
             else
-                card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain
-                return {
-                    message = localize('k_upgrade_ex'),
-                    colour = G.C.CHIPS
-                }
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = 'chips',
+                    scalar_value = 'chips_gain',
+                })
             end
         end
         if context.joker_main then

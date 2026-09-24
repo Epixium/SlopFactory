@@ -15,17 +15,18 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.using_consumeable and not context.blueprint then
-            card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
-            return {
-                message = localize('k_upgrade_ex')
-            }
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = 'Xmult',
+                scalar_value = 'Xmult_gain'
+            })
         end
         if context.selling_card and context.card.ability.consumeable and card.ability.extra.Xmult > 1 and not context.blueprint then
-            card.ability.extra.Xmult = 1
-            return {
-                message = localize('k_reset'),
-                colour = G.C.RED
-            }
+            SMODS.reset_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = 'Xmult',
+                reset_value = 1,
+            })
         end
         if context.joker_main then
             return {

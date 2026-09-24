@@ -15,18 +15,23 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
-            local prev_chips = card.ability.extra.chips
+            local delta_chips = math.max(0, card.ability.extra.chips + card.ability.extra.hand_add - card.ability.extra.held_sub * #G.hand.cards) - card.ability.extra.chips
             -- See note about SMODS Scaling Manipulation on the wiki
-            card.ability.extra.chips = math.max(0, card.ability.extra.chips + card.ability.extra.hand_add - card.ability.extra.held_sub * #G.hand.cards)
-            if card.ability.extra.chips > prev_chips then
-                return {
-                    message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips - prev_chips } }
-                }
-            elseif card.ability.extra.chips < prev_chips then
-                return {
-                    message = localize { type = 'variable', key = 'a_chips_minus', vars = { prev_chips - card.ability.extra.chips } },
-                    colour = G.C.RED
-                }
+            if delta_chips ~= 0 then
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = 'chips',
+                    operation = function(ref_table, ref_value, initial, change)
+                        ref_table[ref_value] = math.max(initial + delta_chips * change, 0)
+                    end,
+                    scaling_message = delta_chips > 0 and {
+                        message = localize { type = 'variable', key = 'a_chips', vars = { delta_chips } },
+                        colour = G.C.CHIPS
+                    } or {
+                        message = localize { type = 'variable', key = 'a_chips_minus', vars = { -delta_chips } },
+                        colour = G.C.RED
+                    }
+                })
             end
         end
         if context.joker_main then

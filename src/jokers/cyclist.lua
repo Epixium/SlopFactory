@@ -17,13 +17,18 @@ SMODS.Joker {
         if context.before and not context.blueprint then
             for _,poker_hand in ipairs(G.handlist) do
                 if (card.ability.extra.last_hand == poker_hand) then
-                    card.ability.extra.chips = 0
+                    SMODS.reset_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = 'chips',
+                        reset_value = 0,
+                    })
                     card.ability.extra.last_hand_disp = 'slfa_none'
-                    return {
-                        message = localize('k_reset')
-                    }
                 elseif (context.scoring_name == poker_hand) then
-                    card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = 'chips',
+                        scalar_value = 'scaling'
+                    })
                     card.ability.extra.last_hand_disp = context.scoring_name
                     return
                 end

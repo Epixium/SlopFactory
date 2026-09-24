@@ -29,8 +29,19 @@ SMODS.Joker {
                 if removed_card:get_id() == 14 then aces = aces + 1 end
             end
             if aces > 0 then
-                card.ability.extra.Xmult = card.ability.extra.Xmult + aces * card.ability.extra.Xmult_gain
-                return { message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } } }
+                local old_Xmult = card.ability.extra.Xmult
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = 'Xmult',
+                    scalar_value = 'Xmult_gain',
+                    operation = function(ref_table, ref_value, initial, change)
+                        ref_table[ref_value] = initial + aces * change
+                    end,
+                    scaling_message = {
+                        message = localize { type = 'variable', key = 'a_xmult', vars = { aces * card.ability.extra.Xmult_gain } },
+                        colour = G.C.RED
+                    }
+                })
             end
         end
         if context.joker_main then
