@@ -14,8 +14,8 @@ return {
             sleeve_slfa_orange = {
                 name = "Orange Sleeve",
                 text = {
-                    "After defeating each",
-                    "{C:attention}Blind{}, {C:attention}reroll{} the",
+                    "After defeating",
+                    "each {C:attention}Blind{}, {C:attention}reroll{} the",
                     "rightmost Joker",
                 },
             },

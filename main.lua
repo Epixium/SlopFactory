@@ -71,7 +71,8 @@ SMODS.Attribute {
 
 assert(SMODS.load_file("src/utils.lua"))()
 
-SlopFactory.load_src('jokers')
+assert(SMODS.load_file("src/joker_order.lua"))()
+--SlopFactory.load_src('jokers')
 SlopFactory.load_src('tarots')
 SlopFactory.load_src('backs')
 if next(SMODS.find_mod('CardSleeves')) then SlopFactory.load_src('sleeves') end

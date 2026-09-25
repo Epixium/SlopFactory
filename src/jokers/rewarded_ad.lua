@@ -12,7 +12,7 @@ SMODS.Joker {
         x = 2,
         y = 2
     },
-    rarity = 3,
+    rarity = 2,
     cost = 7,
     attributes = { 'reroll_joker', 'joker', 'position', 'lose_economy' },
     config = { extra = { dollars = 3 } },
