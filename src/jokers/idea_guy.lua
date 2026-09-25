@@ -94,7 +94,7 @@ SMODS.Joker {
         if card.area.config.collection then return false end
         
         if card.ability.extra.overridden and
-            card.ability.extra.overridden.getting_sliced or card.ability.extra.dissolve ~= 0
+            (card.ability.extra.overridden.getting_sliced or (card.ability.extra.dissolve and card.ability.extra.dissolve ~= 0))
         then
             card.ability.extra.overridden = nil
         end
@@ -103,10 +103,8 @@ SMODS.Joker {
         
         -- un-override the last overridden joker
         if card.ability.extra.overridden ~= right_joker then
-            if card.ability.extra.overridden then
-                if card.ability.extra.overridden.add_to_deck then
-                    card.ability.extra.overridden:add_to_deck(true)
-                end
+            if card.ability.extra.overridden and card.ability.extra.overridden.add_to_deck then
+                card.ability.extra.overridden:add_to_deck(true)
             end
             if right_joker and right_joker.remove_from_deck then
                 right_joker:remove_from_deck(true)

@@ -9,6 +9,14 @@ return {
                     "rightmost Joker",
                 },
             },
+            b_slfa_fools = {
+                name = "Fool's Deck",
+                text = {
+                    "{C:attention}+#1#{} Joker slots",
+                    "{C:red}#2#{} hand size",
+                    "Start at Ante {C:attention}#3#{}"
+                }
+            }
         },
         Sleeve = {
             sleeve_slfa_orange = {
@@ -25,6 +33,21 @@ return {
                     "After {C:attention}discard{}, {C:attention}reroll{}",
                     "the rightmost Joker",
                 },
+            },
+            sleeve_slfa_fools = {
+                name = "Fool's Sleeve",
+                text = {
+                    "{C:attention}+#1#{} Joker slots",
+                    "{C:red}#2#{} hand size",
+                    "Start at Ante {C:attention}#3#{}"
+                }
+            },
+            sleeve_slfa_fools_alt = {
+                name = "Fool's Sleeve",
+                text = {
+                    "{C:attention}+#1#{} Joker slots",
+                    "{C:red}#2#{} consumable slot"
+                }
             },
         },
         Joker = {
