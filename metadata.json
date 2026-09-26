@@ -9,5 +9,5 @@
     "prefix": "slfa",
     "main_file": "main.lua",
     "priority": 1,
-    "version": "1.0.5"
+    "version": "1.0.6"
 }

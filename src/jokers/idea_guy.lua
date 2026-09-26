@@ -94,12 +94,18 @@ SMODS.Joker {
         if card.area.config.collection then return false end
         
         if card.ability.extra.overridden and
-            (card.ability.extra.overridden.getting_sliced or (card.ability.extra.dissolve and card.ability.extra.dissolve ~= 0))
+            (card.ability.extra.overridden.getting_sliced or (card.ability.extra.overridden.dissolve and card.ability.extra.overridden.dissolve ~= 0))
         then
+            print('overridden card being destroyed')
             card.ability.extra.overridden = nil
         end
         
         local _, right_joker = get_side_jokers(card)
+        if right_joker then
+            if right_joker.getting_sliced or (right_joker.dissolve and right_joker.dissolve ~= 0) then
+                right_joker = nil
+            end
+        end
         
         -- un-override the last overridden joker
         if card.ability.extra.overridden ~= right_joker then

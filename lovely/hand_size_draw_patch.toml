@@ -2,7 +2,6 @@
 version = "1.0.0"
 priority = 0
 
-# add forcing nominal
 [[patches]]
 [patches.pattern]
 target = 'cardarea.lua'

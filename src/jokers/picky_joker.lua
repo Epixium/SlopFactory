@@ -14,7 +14,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.mult, numerator, denominator } }
     end,
     calculate = function(self, card, context)
-        if context.press_play then
+        if context.press_play and G.hand.cards and #G.hand.cards > 0 then
             if SMODS.pseudorandom_probability(card, 'slfa_picky_joker', 1, card.ability.extra.odds) then
                 G.E_MANAGER:add_event(Event({
                     func = function()

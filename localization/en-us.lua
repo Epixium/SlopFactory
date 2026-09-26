@@ -14,7 +14,7 @@ return {
                 text = {
                     "{C:attention}+#1#{} Joker slots",
                     "{C:red}#2#{} hand size",
-                    "Start at Ante {C:attention}#3#{}"
+                    "Start with {C:attention,T:j_joker}#3#{}"
                 }
             }
         },
@@ -39,14 +39,15 @@ return {
                 text = {
                     "{C:attention}+#1#{} Joker slots",
                     "{C:red}#2#{} hand size",
-                    "Start at Ante {C:attention}#3#{}"
+                    "Start with {C:attention,T:j_joker}#3#{}"
                 }
             },
             sleeve_slfa_fools_alt = {
                 name = "Fool's Sleeve",
                 text = {
-                    "{C:attention}+#1#{} Joker slots",
-                    "{C:red}#2#{} consumable slot"
+                    "Shop has a free",
+                    "{C:attention,T:p_buffoon_jumbo_1}#1#{}",
+                    "{C:red}#2#{} Booster slot"
                 }
             },
         },

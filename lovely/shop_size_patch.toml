@@ -1,0 +1,18 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''
+if G.shop_jokers and G.shop_jokers.cards then
+    if mod < 0 then
+'''
+position = 'at'
+payload = '''
+if G.shop_jokers and G.shop_jokers.cards then
+    if false then -- if mod < 0 then
+        -- (hi, Slop Factory here, this is disabled b/c it allowed Idea Guy + Platinum Card to reroll forever)
+'''
+match_indent = true

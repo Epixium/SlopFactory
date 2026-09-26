@@ -62,7 +62,7 @@ SMODS.Joker {
                             n = G.UIT.C,
                             config = { ref_table = card, r = 0.05, padding = 0.06 },
                             nodes = {
-                                { n = G.UIT.T, config = { text = joker.config.center.name, colour = G.C.UI.TEXT_INACTIVE, scale = 0.32 * 0.8 } },
+                                { n = G.UIT.T, config = { text = localize { type = 'name_text', set = 'Joker', key = joker.config.center.key }, colour = G.C.UI.TEXT_INACTIVE, scale = 0.32 * 0.8 } },
                             }
                         },
                         {
