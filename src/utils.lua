@@ -29,7 +29,7 @@ function SlopFactory.reroll_joker(card, args)
     if args.pool then
         local valid_keys = {}
         for _, key in ipairs(args.pool) do
-            if G.P_CENTERS[key].rarity == rarity then
+            if G.P_CENTERS[key].rarity == rarity and key ~= 'UNAVAILABLE' then
                 valid_keys[#valid_keys+1] = key
             end
         end
@@ -67,6 +67,7 @@ function SlopFactory.reroll_joker(card, args)
     local center = nil
     if next(full_pool) then
         local chosen_key = pseudorandom_element(full_pool, pseudoseed('slfa_reroll_joker' .. (args.seed or '') .. G.GAME.round_resets.ante))
+        print(chosen_key)
         center = G.P_CENTERS[chosen_key]
     end
 

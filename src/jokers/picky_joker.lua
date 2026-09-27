@@ -8,14 +8,15 @@ SMODS.Joker {
     rarity = 1,
     cost = 5,
     attributes = { 'mult', 'chance', 'enhancements', 'discard' },
-    config = { extra = { mult = 11, odds = 2 } },
+    config = { extra = { mult = 11, odds = 2, already_discarded = false } },
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'slfa_picky_joker')
         return { vars = { card.ability.extra.mult, numerator, denominator } }
     end,
     calculate = function(self, card, context)
-        if context.press_play and G.hand.cards and #G.hand.cards > 0 then
+        if context.press_play and G.hand.cards and #G.hand.cards > 0 and not card.ability.extra.already_discarded then
             if SMODS.pseudorandom_probability(card, 'slfa_picky_joker', 1, card.ability.extra.odds) then
+                card.ability.extra.already_discarded = true
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         local old_limit = G.hand.config.highlighted_limit
@@ -46,6 +47,9 @@ SMODS.Joker {
             return {
                 mult = card.ability.extra.mult
             }
+        end
+        if context.after and not context.blueprint then
+            card.ability.extra.already_discarded = false
         end
     end,
     joker_display_def = function(JokerDisplay)
