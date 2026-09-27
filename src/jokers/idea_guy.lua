@@ -40,7 +40,7 @@ SMODS.Joker {
     rarity = 1,
     cost = 10,
     attributes = { 'copying', 'debuff', 'position' },
-    config = { extra = { overridden = nil } },
+    config = { overridden = nil },
     loc_vars = function(self, info_queue, card)
         if card.area and card.area == G.jokers then
             local copied_joker
@@ -87,19 +87,19 @@ SMODS.Joker {
         end
         if context.selling_card and context.card == right_joker then
             right_joker:remove_from_deck() -- manual style
-            card.ability.extra.overridden = nil
+            card.ability.overridden = nil
         end
     end,
     update = function(self, card, dt)
         if card.area.config.collection then return false end
         
-        if card.ability.extra.overridden and
-            (card.ability.extra.overridden.getting_sliced or (card.ability.extra.overridden.dissolve and card.ability.extra.overridden.dissolve ~= 0))
+        if card.ability.overridden and
+            (card.ability.overridden.getting_sliced or (card.ability.overridden.dissolve and card.ability.overridden.dissolve ~= 0))
         then
             print('overridden card being destroyed')
-            card.ability.extra.overridden = nil
+            card.ability.overridden = nil
         end
-        
+
         local _, right_joker = get_side_jokers(card)
         if right_joker then
             if right_joker.getting_sliced or (right_joker.dissolve and right_joker.dissolve ~= 0) then
@@ -108,9 +108,9 @@ SMODS.Joker {
         end
         
         -- un-override the last overridden joker
-        if card.ability.extra.overridden ~= right_joker then
-            if card.ability.extra.overridden and card.ability.extra.overridden.add_to_deck then
-                card.ability.extra.overridden:add_to_deck(true)
+        if card.ability.overridden ~= right_joker then
+            if card.ability.overridden and card.ability.overridden.add_to_deck then
+                card.ability.overridden:add_to_deck(true)
             end
             if right_joker and right_joker.remove_from_deck then
                 right_joker:remove_from_deck(true)
@@ -118,16 +118,16 @@ SMODS.Joker {
             --SMODS.calculate_context({slfa_idea_guy_debuff = true, other_card = right_joker})
         end
 
-        card.ability.extra.overridden = right_joker
+        card.ability.overridden = right_joker
     end,
     remove_from_deck = function(self, card, from_debuff)
-        if card.ability.extra.overridden then
-            card.ability.extra.overridden:add_to_deck(true)
+        if card.ability.overridden then
+            card.ability.overridden:add_to_deck(true)
             if JokerDisplay then
-                manual_joker_display_shit(card.ability.extra.overridden)
-                card.ability.extra.overridden:initialize_joker_display()
+                manual_joker_display_shit(card.ability.overridden)
+                card.ability.overridden:initialize_joker_display()
             end
-            card.ability.extra.overridden = nil
+            card.ability.overridden = nil
         end
     end,
     joker_display_def = function(JokerDisplay)

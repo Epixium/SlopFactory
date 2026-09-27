@@ -28,9 +28,9 @@ SlopFactory.COLLECTION_ORDER = {
     "platinum_card",
     "red_giant",
     -- FOOD
-    "grape",
-    "strawberry",
     "lemon",
+    "strawberry",
+    "grape",
     "blueberry",
     "charcuterie_board",
     -- ENHANCE, EDITION & POKER HAND

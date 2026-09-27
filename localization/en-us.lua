@@ -46,7 +46,7 @@ return {
                 name = "Fool's Sleeve",
                 text = {
                     "Shop has a free",
-                    "{C:attention,T:p_buffoon_jumbo_1}#1#{}",
+                    "{C:attention,T:p_buffoon_fools_1}#1#{}",
                     "{C:red}#2#{} Booster slot"
                 }
             },
@@ -359,7 +359,41 @@ return {
                     "{s:0.8}Joker changes every hand{}",
                     "{C:inactive}(Currently {C:attention}#1#{C:inactive})"
                 }
-            }
+            },
+            j_slfa_grape = {
+                name = "Grape",
+                text = {
+                    "The next {C:attention}#1#{} played",
+                    "{C:spades}Spade{} cards permanently",
+                    "add {C:chips}+#2#{} Chips to played",
+                    "{C:attention}poker hand{} when scored",
+                }
+            },
+            j_slfa_strawberry = {
+                name = "Strawberry",
+                text = {
+                    "The next {C:attention}#1#{} played",
+                    "{C:hearts}Heart{} cards permanently",
+                    "add {C:mult}+#2#{} Mult to played",
+                    "{C:attention}poker hand{} when scored",
+                }
+            },
+            j_slfa_lemon = {
+                name = "Lemon",
+                text = {
+                    "The next {C:attention}#1#{} played",
+                    "{C:diamonds}Diamond{} cards retrigger",
+                    "{C:attention}#2#{} additional times",
+                }
+            },
+            j_slfa_blueberry = {
+                name = "Blueberry",
+                text = {
+                    "The next {C:attention}#1#{} {C:clubs}Club{} cards",
+                    "held in hand retrigger",
+                    "{C:attention}#2#{} additional time",
+                }
+            },
         },
         Tarot = {
             c_slfa_branch = {
@@ -380,6 +414,13 @@ return {
                     "{C:attention,s:0.8}#2#%{s:0.8} chance to {C:red,s:0.8}decrease{s:0.8} rarity",
                     "{C:inactive,s:0.7}(Retains Edition and Stickers)",
                 }
+            },
+            p_slfa_buffoon_fools = {
+                name = "Fool's Buffoon Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{} {C:joker}Joker{} cards",
+                },
             }
         }
     },

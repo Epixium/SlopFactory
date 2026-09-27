@@ -57,13 +57,18 @@ SMODS.Atlas {
     py = 95
 }
 
+SMODS.Atlas {
+    key = 'boosters',
+    path = 'boosters.png',
+    px = 71,
+    py = 95
+}
+
 --#endregion
 
 --#region Attributes
 
-SMODS.Attribute {
-    key = 'reroll_joker'
-}
+SMODS.Attribute { key = 'reroll_joker' }
 
 --#endregion
 
@@ -74,6 +79,7 @@ assert(SMODS.load_file("src/utils.lua"))()
 assert(SMODS.load_file("src/joker_order.lua"))()
 --SlopFactory.load_src('jokers')
 SlopFactory.load_src('tarots')
+SlopFactory.load_src('boosters')
 SlopFactory.load_src('backs')
 if next(SMODS.find_mod('CardSleeves')) then SlopFactory.load_src('sleeves') end
 

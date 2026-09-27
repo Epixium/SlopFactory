@@ -8,7 +8,7 @@ CardSleeves.Sleeve {
         local key, vars
         if self.get_current_deck_key() == "b_slfa_fools" then
             key = self.key .. "_alt"
-            self.config = { booster_slot = -1, booster_pack = 'p_buffoon_jumbo' }
+            self.config = { booster_slot = -1, booster_pack = 'p_slfa_buffoon_fools' }
             vars = { localize { type = 'name_text', set = 'Other', key = self.config.booster_pack }, self.config.booster_slot }
         else
             key = self.key
@@ -34,7 +34,6 @@ CardSleeves.Sleeve {
         if self.get_current_deck_key() == 'b_slfa_fools' then
             if context.starting_shop then
                 local booster = SMODS.add_booster_to_shop(self.config.booster_pack .. '_' .. 1)
-                booster.cost = 0
                 return true
             end
         end
