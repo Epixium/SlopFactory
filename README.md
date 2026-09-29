@@ -8,7 +8,7 @@
 
 epixiumgpt make me a balatro mod
 
-- adds a [collection of jokers](https://docs.google.com/spreadsheets/d/1hWwtSQsg4pJxubRERK6FXCJLILIaCk6HOqwqkaSEgQA/edit?gid=0#gid=0) for you to play with in your runs! (currently 39) 
+- adds a [collection of jokers](https://docs.google.com/spreadsheets/d/1hWwtSQsg4pJxubRERK6FXCJLILIaCk6HOqwqkaSEgQA/edit?gid=0#gid=0) for you to play with in your runs! (currently 42) 
 
 - also adds two decks and one consumable as of now
 
