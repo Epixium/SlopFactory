@@ -20,7 +20,12 @@ SMODS.Joker {
                 for _, subeffect in pairs(effect) do
                     if next(subeffect) or #subeffect > 0 then
                         if not context.blueprint then
-                            card.ability.extra.cards_left = card.ability.extra.cards_left - 1
+                            SMODS.scale_card(card, {
+                                ref_table = card.ability.extra,
+                                ref_value = "cards_left",
+                                operation = "-",
+                                no_message = true
+                            })
                         end
                         return {
                             repetitions = card.ability.extra.repetitions

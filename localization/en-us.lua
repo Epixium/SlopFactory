@@ -394,6 +394,31 @@ return {
                     "{C:attention}#2#{} additional time",
                 }
             },
+            j_slfa_pimp = {
+                name = "Pimp",
+                text = {
+                    "This Joker gains {C:mult}+#1#{} Mult",
+                    "when a card with an",
+                    "{C:attention}Edition{} is obtained",
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
+                }
+            },
+            j_slfa_cheat_sheet = {
+                name = "Cheat Sheet",
+                text = {
+                    "{C:attention}Straights{} containing an",
+                    "{C:attention}Ace{} are considered",
+                    "{C:attention}Straight Flushes{}"
+                }
+            },
+            j_slfa_infinite_zest = {
+                name = "Infinite Zest",
+                text = {
+                    "{C:attention}Food Jokers{} are {C:attention}rerolled{}",
+                    "into other Food Jokers",
+                    "when destroyed"
+                }
+            },
         },
         Tarot = {
             c_slfa_branch = {

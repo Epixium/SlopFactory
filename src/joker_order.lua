@@ -32,7 +32,7 @@ SlopFactory.COLLECTION_ORDER = {
     "strawberry",
     "grape",
     "blueberry",
-    "charcuterie_board",
+    "infinite_zest",
     -- ENHANCE, EDITION & POKER HAND
     "pimp",
     "frilly_joker",
