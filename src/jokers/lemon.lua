@@ -15,12 +15,16 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.repetition and card.ability.extra.cards_left > 0 and
             context.other_card:is_suit(card.ability.extra.suit) and context.cardarea == G.play then
-            card.ability.extra.cards_left = card.ability.extra.cards_left - 1
+            if not context.blueprint then
+                card.ability.extra.cards_left = card.ability.extra.cards_left - 1
+            end
             return {
                 repetitions = card.ability.extra.repetitions
             }
         end
-        if (context.after or (context.end_of_round and context.main_eval) or context.round_eval) and card.ability.extra.cards_left <= 0 then
+        if (context.after or (context.end_of_round and context.main_eval) or context.round_eval)
+            and not context.blueprint
+            and card.ability.extra.cards_left <= 0 then
             SMODS.destroy_cards(card, nil, nil, true)
             return {
                 message = localize('k_eaten_ex'),

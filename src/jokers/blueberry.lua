@@ -19,7 +19,9 @@ SMODS.Joker {
             for _, effect in ipairs(context.card_effects) do
                 for _, subeffect in pairs(effect) do
                     if next(subeffect) or #subeffect > 0 then
-                        card.ability.extra.cards_left = card.ability.extra.cards_left - 1
+                        if not context.blueprint then
+                            card.ability.extra.cards_left = card.ability.extra.cards_left - 1
+                        end
                         return {
                             repetitions = card.ability.extra.repetitions
                         }
@@ -27,7 +29,7 @@ SMODS.Joker {
                 end
             end
         end
-        if (context.after or (context.end_of_round and context.main_eval) or context.round_eval) and card.ability.extra.cards_left <= 0 then
+        if context.after and not context.blueprint and card.ability.extra.cards_left <= 0 then
             SMODS.destroy_cards(card, nil, nil, true)
             return {
                 message = localize('k_eaten_ex'),
