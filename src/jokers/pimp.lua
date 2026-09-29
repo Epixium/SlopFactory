@@ -11,7 +11,7 @@ SMODS.Joker {
     attributes = { 'mult', 'editions', 'scaling' },
     config = { extra = { mult = 0, mult_gain = 7 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult, card.ability.extra.mult_gain } }
+        return { vars = { card.ability.extra.mult_gain, card.ability.extra.mult } }
     end,
     set_ability = function(self, card, initial, delay_sprites)
         G.E_MANAGER:add_event(Event({
