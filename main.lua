@@ -66,6 +66,12 @@ SMODS.Atlas {
 
 --#endregion
 
+--#region Sounds
+
+SMODS.Sound { key = 'showmeyourpower', path = 'showmeyourpower.ogg' }
+
+--#endregion
+
 --#region Attributes
 
 SMODS.Attribute { key = 'reroll_joker' }

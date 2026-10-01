@@ -153,7 +153,7 @@ SMODS.Joker {
             SMODS.add_card {
                 key = card.ability.extra.current_joker
             }
-            effects[#effects+1] = {message = localize('slfa_police_sketch_gotem'), true} -- This is for Joker retrigger purposes
+            effects[#effects+1] = {message = localize('k_slfa_police_sketch_gotem'), true} -- This is for Joker retrigger purposes
         end
 
         return SMODS.merge_effects(effects)

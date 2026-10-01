@@ -38,7 +38,7 @@ SMODS.Joker {
                 }))
                 delay(0.7)
                 return {
-                    message = localize('k_discarded_ex'),
+                    message = localize('k_slfa_discarded_ex'),
                     colour = G.C.RED,
                 }
             end

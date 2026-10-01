@@ -36,7 +36,7 @@ SMODS.Joker {
             SlopFactory.update_debuffed()
             if debuffed_any then
                 return {
-                    message = localize('k_debuffed_ex'),
+                    message = localize('k_slfa_debuffed_ex'),
                     colour = G.C.RED
                 }
             end

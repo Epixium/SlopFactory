@@ -1,0 +1,72 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+# add discard debt to starting data
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''
+hands_played = 0,
+discards_left = 0,
+'''
+position = 'after'
+payload = '''
+discard_debt = 0,
+'''
+match_indent = true
+
+# reset discard debt when round ends
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''
+G.GAME.current_round.discards_left = G.GAME.round_resets.discards
+G.GAME.current_round.hands_left = G.GAME.round_resets.hands
+'''
+position = 'after'
+payload = '''
+G.GAME.current_round.discard_debt = 0
+'''
+match_indent = true
+
+# reset discard debt when round begins
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '''
+G.GAME.current_round.discards_left = math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards)
+'''
+position = 'after'
+payload = '''
+G.GAME.current_round.discard_debt = 0
+'''
+match_indent = true
+
+# main discard debt handler, prevents it from going below 0 visually
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''
+if math.abs(math.max(G.GAME.current_round.discards_left, mod)) == 0 then return end
+local discard_UI = G.HUD:get_UIE_by_ID('discard_UI_count')
+mod = mod or 0
+'''
+position = 'at'
+payload = '''
+--if math.abs(math.max(G.GAME.current_round.discards_left, mod)) == 0 then return end
+local discard_UI = G.HUD:get_UIE_by_ID('discard_UI_count')
+mod = mod or 0
+-- if discard debt > 0, try and resolve the debt
+if mod > 0 then
+    if G.GAME.current_round.discard_debt > 0 then
+        local delta_debt = math.min(mod, G.GAME.current_round.discard_debt)
+        G.GAME.current_round.discard_debt = G.GAME.current_round.discard_debt - delta_debt
+        mod = mod - delta_debt
+    end
+else
+    G.GAME.current_round.discard_debt = G.GAME.current_round.discard_debt - math.min(0, G.GAME.current_round.discards_left + mod)
+end
+if math.abs(math.max(G.GAME.current_round.discards_left, mod)) == 0 then return end
+'''
+match_indent = true

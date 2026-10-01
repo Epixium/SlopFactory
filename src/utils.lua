@@ -105,10 +105,10 @@ function SlopFactory.reroll_joker(card, args)
     local delta_rarity = (rarity - old_rarity) or nil
     
     local message_table = {
-        message = localize((tonumber(delta_rarity) == nil and 'slfa_rewarded_ad_reroll')
-            or (delta_rarity > 0 and 'slfa_rewarded_ad_rarity_up')
-            or (delta_rarity < 0 and 'slfa_rewarded_ad_rarity_down')
-            or 'slfa_rewarded_ad_reroll'),
+        message = localize((tonumber(delta_rarity) == nil and 'slfa_reroll_joker')
+            or (delta_rarity > 0 and 'slfa_reroll_joker_up')
+            or (delta_rarity < 0 and 'slfa_reroll_joker_down')
+            or 'slfa_reroll_joker'),
         colour = SMODS.Rarities[rarities[rarity] or rarity].badge_colour,
     }
 

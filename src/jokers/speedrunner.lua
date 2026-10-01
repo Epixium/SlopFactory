@@ -16,7 +16,7 @@ SMODS.Joker {
         if context.setting_blind and not context.blueprint and not context.blind.boss then
             SMODS.destroy_cards(card, nil, nil, true)
             return {
-                message = localize('slfa_speedrunner_huevo')
+                message = localize('k_slfa_speedrunner_huevo')
             }
         end
         if context.joker_main then

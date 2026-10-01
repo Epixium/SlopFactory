@@ -36,7 +36,7 @@ SMODS.Joker {
                 ref_table = card.ability.extra,
                 ref_value = 'Xmult',
                 reset_value = card.ability.extra.Xmult_base,
-                message_key = 'slfa_fuel_gauge_refuel'
+                message_key = 'k_slfa_fuel_gauge_refuel'
             })
         end
         if context.joker_main then

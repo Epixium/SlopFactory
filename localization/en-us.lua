@@ -451,19 +451,19 @@ return {
     },
     misc = {
         dictionary = {
-            k_discarded_ex = "Discarded!",
-            k_downgrade_ex = "Downgrade!",
-            k_debuffed_ex = "Debuffed!",
-            k_showmeyourpower_ex = "SHOW ME YOUR POWER!",
-            k_plus_tag = "+1 Tag",
+            k_slfa_discarded_ex = "Discarded!",
+            k_slfa_downgrade_ex = "Downgrade!",
+            k_slfa_debuffed_ex = "Debuffed!",
+            k_slfa_showmeyourpower_ex = "SHOW ME YOUR POWER!",
+            k_slfa_plus_tag = "+1 Tag",
+            k_slfa_fuel_gauge_refuel = "Refueled!",
+            k_slfa_reroll_joker = "Rerolled!",
+            k_slfa_reroll_joker_up = "Rarity Up!",
+            k_slfa_reroll_joker_down = "Rarity Down",
+            k_slfa_speedrunner_huevo = "Huevo!",
+            k_slfa_police_sketch_gotem = "Got 'Em!",
             slfa_blitzkrieg_active = "Active!",
             slfa_blitzkrieg_inactive = "Inactive",
-            slfa_fuel_gauge_refuel = "Refueled!",
-            slfa_rewarded_ad_reroll = "Rerolled!",
-            slfa_rewarded_ad_rarity_up = "Rarity Up!",
-            slfa_rewarded_ad_rarity_down = "Rarity Down",
-            slfa_speedrunner_huevo = "Huevo!",
-            slfa_police_sketch_gotem = "Got 'Em!"
         },
         poker_hands = {
             slfa_none = "None"

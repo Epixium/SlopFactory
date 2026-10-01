@@ -24,7 +24,7 @@ SMODS.Joker {
                         ref_table[ref_value] = math.max(initial - change, 0)
                     end,
                     scaling_message = {
-                        message = localize('k_downgrade_ex'),
+                        message = localize('k_slfa_downgrade_ex'),
                         colour = G.C.RED
                     }
                 })
