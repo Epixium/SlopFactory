@@ -75,6 +75,7 @@ SMODS.Sound { key = 'showmeyourpower', path = 'showmeyourpower.ogg' }
 --#region Attributes
 
 SMODS.Attribute { key = 'reroll_joker' }
+SMODS.Attribute { key = 'select_limit' }
 
 --#endregion
 

@@ -23,7 +23,7 @@ SMODS.Joker {
             if context.ending_shop then
                 card.ability.extra.is_active = false
             end
-            if context.money_altered and context.amount < 0 and card.ability.extra.is_active then
+            if context.money_altered and context.from_shop and context.amount < 0 and card.ability.extra.is_active then
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "mult",

@@ -14,7 +14,7 @@ return {
                 text = {
                     "{C:attention}+#1#{} Joker slots",
                     "{C:red}#2#{} hand size",
-                    "Start with {C:attention,T:j_joker}#3#{}"
+                    "Start with {C:attention,T:j_joker}\"#3#\"{}"
                 }
             }
         },
@@ -399,7 +399,7 @@ return {
                 text = {
                     "This Joker gains {C:mult}+#1#{} Mult",
                     "when a card with an",
-                    "{C:attention}Edition{} is obtained",
+                    "{C:dark_edition}Edition{} is obtained",
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
                 }
             },
@@ -411,12 +411,45 @@ return {
                     "{C:attention}Straight Flushes{}"
                 }
             },
-            j_slfa_infinite_zest = {
-                name = "Infinite Zest",
+            j_slfa_max_load = {
+                name = "Max Load",
                 text = {
-                    "{C:attention}Food Jokers{} are {C:attention}rerolled{}",
-                    "into other Food Jokers",
-                    "when destroyed"
+                    "{C:chips}+#1#{} Chips",
+                    "{C:red}-#2#{} card",
+                    "selection limit",
+                }
+            },
+            j_slfa_cash_back = {
+                name = "Cash Back",
+                text = {
+                    "This Joker gains {C:chips}+#1#{} Chips",
+                    "when a purchase is made",
+                    "with less than {C:money}$#2#{}",
+                    "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)"
+                }
+            },
+            j_slfa_witness_protection = {
+                name = "Witness Protection",
+                text = {
+                    "This Joker gains {C:mult}+#1#{} Mult",
+                    "if {C:attention}played{} hand contains",
+                    "no ranks above {C:attention}5{}",
+                    "{C:inactive,s:0.8}(Aces count as 1)",
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
+                }
+            },
+            j_slfa_the_cooler_joker = {
+                name = "The Cooler Joker",
+                text = {
+                    "{C:mult}+#1#{} Mult while {C:attention}\"Joker\"{}",
+                    "is to the left",
+                }
+            },
+            j_slfa_bargain_bin = {
+                name = "Bargain Bin",
+                text = {
+                    "{C:blue}Common{} Jokers in",
+                    "shop are {C:money}$#1#{} off",
                 }
             },
         },
