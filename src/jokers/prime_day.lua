@@ -21,7 +21,6 @@ SMODS.Joker {
             and SMODS.pseudorandom_probability(card, 'slfa_prime_day', 1, card.ability.extra.odds) then
                 return {
                     message = localize('k_slfa_plus_tag'),
-                    colour = G.C.GREEN,
                     func = function() -- This is for timing purposes, everything here runs after the message
                         G.E_MANAGER:add_event(Event({
                             func = (function()

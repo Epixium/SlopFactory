@@ -15,8 +15,11 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if not context.blueprint then
-            if context.setting_ability and context.other_card.ability.set == "Base"
-                and context.new ~= "c_base" and context.old == "c_base" then
+            if context.setting_ability then
+                print(context.other_card.ability.set)
+                print(context.old .. ", " .. context.new)
+            end
+            if context.setting_ability and context.other_card.ability.set == "Enhanced" and context.old == "c_base" then
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "chips",

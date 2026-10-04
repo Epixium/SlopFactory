@@ -536,6 +536,9 @@ return {
         }
     },
     misc = {
+        v_dictionary = {
+            a_slfa_plus_tag = "+#1# Tags",
+        },
         dictionary = {
             k_chips = "Chips",
             k_slfa_discarded_ex = "Discarded!",
