@@ -1,3 +1,9 @@
 {
-    "workspace.library": ["path/to/Steamodded", "path/to/lovely"]
+    "workspace.library": [
+        "C:/Users/spira/AppData/Roaming/Balatro/Mods/Steamodded", 
+        "C:/Users/spira/AppData/Roaming/Balatro/Mods/lovely",
+        "C:/Users/spira/AppData/Roaming/Balatro/Mods/JokerDisplay",
+        "C:/Users/spira/AppData/Roaming/Balatro/Mods/CardSleeves",
+        "C:/Users/spira/AppData/Roaming/Balatro/Mods/lsp"
+    ]
 }

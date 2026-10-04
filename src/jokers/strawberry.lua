@@ -19,7 +19,7 @@ SMODS.Joker {
                 hands = context.scoring_name,
                 parameters = {'mult'},
                 func = function(base, hand, parameter, level_up)
-                        return base + card.ability.extra.mult
+                    return base + card.ability.extra.mult
                 end,
                 from = card,
                 speed = 8,

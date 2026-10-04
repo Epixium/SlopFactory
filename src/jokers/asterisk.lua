@@ -93,7 +93,7 @@ SMODS.Joker {
         end
     end,
     update = function(self, card, dt)
-        if card.area.config.collection then return false end
+        if not card.area or card.area.config.collection then return end
         if card.ability.extra.scoring_name and card.ability.extra.last_order
             and #card.ability.extra.last_order == #G.hand.highlighted then
             local last_wilds = {}

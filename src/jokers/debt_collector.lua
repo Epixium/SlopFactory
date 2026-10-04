@@ -45,7 +45,7 @@ SMODS.Joker {
                     count = count + 1
                 end
             end
-            if count == 0 then return false end
+            if count == 0 then return end
             G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars * count
             return {
                 dollars = card.ability.extra.dollars * count,

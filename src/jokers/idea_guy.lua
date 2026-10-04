@@ -89,6 +89,7 @@ SMODS.Joker {
             right_joker:remove_from_deck() -- manual style
             card.ability.overridden = nil
         end
+        
     end,
     update = function(self, card, dt)
         if not card.area or card.area.config.collection then return false end
