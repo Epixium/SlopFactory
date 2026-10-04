@@ -11,7 +11,7 @@ SMODS.Joker {
     config = { extra = { odds = 3, h_size = 0, h_size_per = 1 } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set = 'Other', key = 'debuffed_playing_card'}
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'slfa_astrologer')
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'slfa_still_life')
         return { vars = { numerator, denominator, card.ability.extra.h_size_per, card.ability.extra.h_size } }
     end,
     calculate = function(self, card, context)

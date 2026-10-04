@@ -7,7 +7,7 @@ SMODS.Joker {
     },
     rarity = 1,
     cost = 4,
-    attributes = { 'chips', 'select_limit' },
+    attributes = { 'chips', 'play_limit', 'discard_limit' },
     config = { extra = { chips = 200, select = 1 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.select } }

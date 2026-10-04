@@ -7,7 +7,7 @@ SMODS.Joker {
     },
     rarity = 2,
     cost = 6,
-    attributes = { 'two', 'three', 'five', 'seven', 'chance', 'tag', 'booster' },
+    attributes = { 'two', 'three', 'five', 'seven', 'chance', 'tag', 'booster', 'generation' },
     config = { extra = { odds = 6 } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = { key = 'tag_standard', set = 'Tag' }
@@ -19,9 +19,8 @@ SMODS.Joker {
             local id = context.other_card:get_id()
             if (id == 2 or id == 3 or id == 5 or id == 8 or id == 14)
             and SMODS.pseudorandom_probability(card, 'slfa_prime_day', 1, card.ability.extra.odds) then
-                return { extra = {
+                return {
                     message = localize('k_slfa_plus_tag'),
-                    message_card = card,
                     colour = G.C.GREEN,
                     func = function() -- This is for timing purposes, everything here runs after the message
                         G.E_MANAGER:add_event(Event({
@@ -33,7 +32,7 @@ SMODS.Joker {
                             end)
                         }))
                     end
-                }}
+                }
             end
         end
     end,

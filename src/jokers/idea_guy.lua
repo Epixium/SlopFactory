@@ -96,7 +96,7 @@ SMODS.Joker {
         if card.ability.overridden and
             (card.ability.overridden.getting_sliced or (card.ability.overridden.dissolve and card.ability.overridden.dissolve ~= 0))
         then
-            print('overridden card being destroyed')
+            --print('overridden card being destroyed')
             card.ability.overridden = nil
         end
 

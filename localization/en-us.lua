@@ -411,6 +411,14 @@ return {
                     "{C:attention}Straight Flushes{}"
                 }
             },
+            j_slfa_infinite_zest = {
+                name = "Infinite Zest",
+                text = {
+                    "{C:attention}Food Jokers{} are {C:attention}rerolled{}",
+                    "into other Food Jokers",
+                    "when destroyed"
+                }
+            },
             j_slfa_max_load = {
                 name = "Max Load",
                 text = {
@@ -452,6 +460,51 @@ return {
                     "shop are {C:money}$#1#{} off",
                 }
             },
+            j_slfa_piggy_bank = {
+                name = "Piggy Bank",
+                text = {
+                    "If you have exactly {C:money}$#1#{},",
+                    "creates {C:attention}#2# #3#s{}",
+                    "{C:red}self destructs{}"
+                }
+            },
+            j_slfa_museum = {
+                name = "Museum",
+                text = {
+                    "This Joker gains",
+                    "{C:chips}+#1#{} Chips when a card",
+                    "becomes {C:attention}Enhanced{}",
+                    "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
+                }
+            },
+            j_slfa_snow_joker = {
+                name = "Snow Joker",
+                text = {
+                    "This Joker gains {C:chips}+#1#{} Chips",
+                    "when a played card scores",
+                    "Melts into {C:attention}\"Splash\"{} with",
+                    "{C:chips}+#3#{} Chips in {C:attention}#2#{} hands",
+                    "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)"
+                }
+            },
+            j_slfa_secret_room = {
+                name = "Secret Room",
+                text = {
+                    "{C:green}#1# in #2#{} chance to",
+                    "add {C:attention}+#3#{} card slot to",
+                    "shop after {C:attention}reroll{},",
+                    "resets at end of {C:attention}shop{}",
+                    "{C:inactive}(Currently {C:attention}+#4#{C:inactive} slots)"
+                }
+            },
+            j_slfa_kerosene_lamp = {
+                name = "Kerosene Lamp",
+                text = {
+                    "{C:attention}Multiply{} scoring values of",
+                    "{C:attention}Joker{} to the left by {X:attention,C:white} X#1# {}",
+                    "{C:inactive}(ex: Chips, XMult, Dollars){}"
+                }
+            },
         },
         Tarot = {
             c_slfa_branch = {
@@ -484,17 +537,20 @@ return {
     },
     misc = {
         dictionary = {
+            k_chips = "Chips",
             k_slfa_discarded_ex = "Discarded!",
             k_slfa_downgrade_ex = "Downgrade!",
             k_slfa_debuffed_ex = "Debuffed!",
             k_slfa_showmeyourpower_ex = "SHOW ME YOUR POWER!",
             k_slfa_plus_tag = "+1 Tag",
+            k_slfa_plus_card_slot = "+1 Card Slot",
             k_slfa_fuel_gauge_refuel = "Refueled!",
             k_slfa_reroll_joker = "Rerolled!",
             k_slfa_reroll_joker_up = "Rarity Up!",
             k_slfa_reroll_joker_down = "Rarity Down",
             k_slfa_speedrunner_huevo = "Huevo!",
             k_slfa_police_sketch_gotem = "Got 'Em!",
+            k_slfa_snow_joker_melted = "Melted!",
             slfa_blitzkrieg_active = "Active!",
             slfa_blitzkrieg_inactive = "Inactive",
         },

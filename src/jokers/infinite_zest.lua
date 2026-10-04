@@ -8,8 +8,8 @@ SMODS.Joker {
         x = 4,
         y = 4
     },
-    rarity = 3,
-    cost = 8,
+    rarity = 2,
+    cost = 7,
     attributes = { 'reroll_joker', 'joker', 'food' },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = { set = "Other", key = "slfa_reroll_joker", vars = { 25, 25 } }

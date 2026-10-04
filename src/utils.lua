@@ -10,6 +10,20 @@ function SlopFactory.update_debuffed()
     })
 end
 
+function SlopFactory.change_joker_center(card, center)
+
+    if card.remove_from_deck and type(card.remove_from_deck) == 'function' then
+        pcall(card.remove_from_deck, card)
+    end
+    card:set_ability(center, true)
+    card:add_to_deck()
+
+    card:start_materialize()
+    card:juice_up(0.5, 0.3)
+    play_sound('card1', 1, 0.6)
+
+end
+
 local rarities = {"Common", "Uncommon", "Rare", "Legendary"}
 -- stolen from handsome devils
 function SlopFactory.reroll_joker(card, args)
@@ -73,29 +87,13 @@ function SlopFactory.reroll_joker(card, args)
 
     if center then
         if args.no_delay then
-            if card.remove_from_deck and type(card.remove_from_deck) == 'function' then
-                pcall(card.remove_from_deck, card)
-            end
-            card:set_ability(center, true)
-            card:add_to_deck()
-
-            card:start_materialize()
-            card:juice_up(0.5, 0.3)
-            play_sound('card1', 1, 0.6)
+            SlopFactory.change_joker_center(card, center)
         else
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.2,
                 func = function()
-                    if card.remove_from_deck and type(card.remove_from_deck) == 'function' then
-                        pcall(card.remove_from_deck, card)
-                    end
-                    card:set_ability(center, true)
-                    card:add_to_deck()
-
-                    card:start_materialize()
-                    card:juice_up(0.5, 0.3)
-                    play_sound('card1', 1, 0.6)
+                    SlopFactory.change_joker_center(card, center)
                     return true
                 end
             }))

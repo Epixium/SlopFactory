@@ -31,19 +31,23 @@ SlopFactory.COLLECTION_ORDER = {
     "prime_day",
     "rewarded_ad",
     "platinum_card",
+    "secret_room",
     "red_giant",
     -- FOOD
     "lemon",
     "strawberry",
     "grape",
     "blueberry",
+    "piggy_bank",
     "infinite_zest",
     -- ENHANCE, EDITION & POKER HAND
+    "museum",
     "pimp",
     "frilly_joker",
     "fools_gold",
     "asterisk",
     "brown_bricks",
+    "snow_joker",
     "cheat_sheet",
     -- DEBUFF
     "debt_collector",
@@ -51,7 +55,8 @@ SlopFactory.COLLECTION_ORDER = {
     -- COPY
     "idea_guy",
     "jokester",
-    "police_sketch"
+    "police_sketch",
+    "kerosene_lamp",
 }
 
 local src = SMODS.NFS.getDirectoryItems(SMODS.current_mod.path .. "src/jokers")
