@@ -53,6 +53,12 @@ SMODS.Joker {
             }
         end
     end,
+    add_to_deck = function(self, card, from_debuff)
+        SlopFactory.update_debuffed()
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        SlopFactory.update_debuffed()
+    end,
     joker_display_def = function(JokerDisplay)
         return {
             text = {

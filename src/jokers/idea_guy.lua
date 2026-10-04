@@ -75,7 +75,7 @@ SMODS.Joker {
         context.selling_self = nil -- idea guy doesn't pass itself when selling
 
         local left_joker, right_joker = get_side_jokers(card)
-        if not left_joker or not right_joker or not left_joker.config.center.blueprint_compat then return end
+        --if not left_joker or not right_joker or not left_joker.config.center.blueprint_compat then return end
         local ret = SMODS.blueprint_effect(right_joker, left_joker, context)
         if ret then
             ret.colour = G.C.BLUE
@@ -91,7 +91,7 @@ SMODS.Joker {
         end
     end,
     update = function(self, card, dt)
-        if card.area.config.collection then return false end
+        if not card.area or card.area.config.collection then return false end
         
         if card.ability.overridden and
             (card.ability.overridden.getting_sliced or (card.ability.overridden.dissolve and card.ability.overridden.dissolve ~= 0))
@@ -172,3 +172,44 @@ SMODS.Joker {
         }
     end
 }
+
+local can_calculate_ref = Card.can_calculate
+Card.can_calculate = function(self, ignore_debuff, ignore_sliced)
+    local ret = can_calculate_ref(self, ignore_debuff, ignore_sliced)
+    if ignore_debuff then return ret end
+    if self.ability.set ~= 'Joker' then return ret end
+    for i = 1, #G.jokers.cards do
+        if G.jokers.cards[i] == self then
+            local potential_guy = G.jokers.cards[i - 1]
+            if potential_guy and potential_guy.config.center.key == 'j_slfa_idea_guy' then
+                return false
+            end
+        end
+    end
+    return ret
+end
+
+local find_cards_ref = SMODS.find_card
+SMODS.find_card = function(key, count_debuffed)
+    local ret = find_cards_ref(key, count_debuffed)
+    if count_debuffed then return ret end
+
+    local list = {}
+    for _, card in ipairs(ret) do
+        local mark_of_the_beast = false
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i] == card then
+                local potential_guy = G.jokers.cards[i - 1]
+                if potential_guy and potential_guy.config.center.key == 'j_slfa_idea_guy' then
+                    mark_of_the_beast = true
+                    break
+                end
+            end
+        end
+        if not mark_of_the_beast then
+            list[#list+1] = card
+        end
+    end
+
+    return list
+end

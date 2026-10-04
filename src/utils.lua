@@ -12,11 +12,22 @@ end
 
 function SlopFactory.change_joker_center(card, center)
 
+    print(card.config.center.key)
     if card.remove_from_deck and type(card.remove_from_deck) == 'function' then
-        pcall(card.remove_from_deck, card)
+        print("step 1")
+        local fake_card = SMODS.shallow_copy(card)
+        print("step 2")
+        --if card.ability then fake_card.ability = copy_table(card.ability) end
+        fake_card:remove_from_deck()
+        print("step 3")
     end
+    card.added_to_deck = false
+    print("step 4")
+    print(center.key)
     card:set_ability(center, true)
+    print("step 5")
     card:add_to_deck()
+    print("step 6")
 
     card:start_materialize()
     card:juice_up(0.5, 0.3)

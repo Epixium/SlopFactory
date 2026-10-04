@@ -58,9 +58,11 @@ SMODS.Joker {
     end,
     add_to_deck = function(self, card, from_debuff)
         G.hand:change_size(card.ability.extra.h_size)
+        SlopFactory.update_debuffed()
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.hand:change_size(-card.ability.extra.h_size)
+        SlopFactory.update_debuffed()
     end,
     joker_display_def = function(JokerDisplay)
         return {

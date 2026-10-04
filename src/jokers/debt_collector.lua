@@ -37,18 +37,6 @@ SMODS.Joker {
         local suit = G.GAME.slfa and G.GAME.slfa.debt_collector.suit or 'Spades'
         return { vars = { card.ability.extra.dollars, localize(suit, 'suits_singular'), colours = { G.C.SUITS[suit] } } }
     end,
-    add_to_deck = function(self, card, from_debuff)
-        for k, v in ipairs(G.playing_cards) do
-            G.GAME.blind:debuff_card(v)
-        end
-        return {
-            vars = {
-                card.ability.extra.xmult,
-                localize(G.GAME.slfa.debt_collector.suit, 'suits_plural'),
-                colours = { G.C.SUITS[G.GAME.slfa.debt_collector.suit] }
-            }
-        }
-    end,
     calculate = function(self, card, context)
         if context.joker_main then
             local count = 0
@@ -92,6 +80,12 @@ SMODS.Joker {
         if context.setting_blind and not context.blueprint then
             SlopFactory.update_debuffed()
         end
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        SlopFactory.update_debuffed()
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        SlopFactory.update_debuffed()
     end,
     joker_display_def = function(JokerDisplay)
         return {
