@@ -34,7 +34,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.value_mult } }
     end,
     calculate = function(self, card, context)
-        if context.post_trigger and context.other_card.ability.set == 'Joker' then
+        if context.post_trigger and context.other_card and context.other_card.ability and context.other_card.ability.set == 'Joker' then
             local other_joker
             for i = 1, #G.jokers.cards do
                 if G.jokers.cards[i] == card then other_joker = G.jokers.cards[i - 1] end
