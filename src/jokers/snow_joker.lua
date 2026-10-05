@@ -125,7 +125,7 @@ SMODS.Joker:take_ownership('splash', {
         end
     end,
     set_sprites = function(self, card, front)
-        local normal = not card.ability or card.ability.extra.chips == 0
+        local normal = not card.ability or type(card.ability.extra) ~= "table" or card.ability.extra.chips == 0
         card.children.center:set_sprite_pos({x = normal and 0 or 1, y = 0})
         card.joker_display_values = { disabled = normal }
     end,

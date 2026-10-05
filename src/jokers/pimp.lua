@@ -14,16 +14,18 @@ SMODS.Joker {
         return { vars = { card.ability.extra.mult_gain, card.ability.extra.mult } }
     end,
     set_ability = function(self, card, initial, delay_sprites)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                if card.area and card.area.config and not card.area.config.collection then
-                    card:set_edition(SMODS.poll_edition({ guaranteed = true }))
-                else
-                    card:set_edition('e_polychrome', true, true)
+        if not card.edition then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    if card.area and card.area.config and not card.area.config.collection then
+                        card:set_edition(SMODS.poll_edition({ guaranteed = true }))
+                    else
+                        card:set_edition('e_polychrome', true, true)
+                    end
+                    return true
                 end
-                return true
-            end
-        }))
+            }))
+        end
         
     end,
     calculate = function(self, card, context)

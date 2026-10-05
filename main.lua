@@ -10,7 +10,8 @@ SlopFactory = {
 
 SMODS.current_mod.optional_features = {
     quantum_enhancements = true,
-    post_trigger = true
+    post_trigger = true,
+    retrigger_joker = true
 }
 
 --#region Atlases
@@ -44,6 +45,13 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+    key = 'spectrals',
+    path = 'spectrals.png',
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas {
     key = 'backs',
     path = 'backs.png',
     px = 71,
@@ -64,11 +72,12 @@ SMODS.Atlas {
     py = 95
 }
 
---#endregion
-
---#region Sounds
-
-SMODS.Sound { key = 'showmeyourpower', path = 'showmeyourpower.ogg' }
+SMODS.Atlas {
+    key = 'tags',
+    path = 'tags.png',
+    px = 34,
+    py = 34
+}
 
 --#endregion
 
@@ -78,6 +87,7 @@ SMODS.Attribute { key = 'reroll_joker' }
 SMODS.Attribute { key = 'play_limit' }
 SMODS.Attribute { key = 'discard_limit' }
 SMODS.Attribute { key = 'value_manip' }
+SMODS.Attribute { key = 'sticker' }
 
 --#endregion
 
@@ -87,8 +97,11 @@ assert(SMODS.load_file("src/utils.lua"))()
 
 assert(SMODS.load_file("src/joker_order.lua"))()
 --SlopFactory.load_src('jokers')
+SlopFactory.load_src('editions')
 SlopFactory.load_src('tarots')
+SlopFactory.load_src('spectrals')
 SlopFactory.load_src('boosters')
+SlopFactory.load_src('tags')
 SlopFactory.load_src('backs')
 if next(SMODS.find_mod('CardSleeves')) then SlopFactory.load_src('sleeves') end
 

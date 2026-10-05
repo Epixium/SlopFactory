@@ -10,6 +10,29 @@ function SlopFactory.update_debuffed()
     })
 end
 
+--[[
+elseif self.config.center.name == "Half Joker" then
+        self.T.h = H*scale/1.7*scale
+        self.T.w = W*scale
+    elseif self.config.center.name == "Wee Joker" then 
+        self.T.h = H*scale*0.7*scale
+        self.T.w = W*scale*0.7*scale
+    elseif self.config.center.name == "Photograph" then 
+        self.T.h = H*scale/1.2*scale
+        self.T.w = W*scale
+    elseif self.config.center.name == "Square Joker" then
+        H = W 
+        self.T.h = H*scale
+        self.T.w = W*scale
+]]
+
+local basegame_scales = {
+    j_half       = { w = 71,       h = 95 / 1.7 },
+    j_wee        = { w = 71 * .7,  h = 95 * .7  },
+    j_photograph = { w = 71,       h = 95 / 1.2 },
+    j_square     = { w = 71,       h = 71       },
+}
+
 function SlopFactory.change_joker_center(card, center)
 
     print(card.config.center.key)
@@ -24,7 +47,40 @@ function SlopFactory.change_joker_center(card, center)
     card.added_to_deck = false
     print("step 4")
     print(center.key)
+    local default_center = G.P_CENTERS[card.config.center.key]
+    local old_size = {
+        w = card.T.w,
+        h = card.T.h
+    }
+    if basegame_scales[card.config.center.key] then
+        old_size.w = old_size.w / basegame_scales[card.config.center.key].w * 71
+        old_size.h = old_size.h / basegame_scales[card.config.center.key].h * 95
+    end
+    if default_center.pixel_size then
+        print(default_center.pixel_size)
+        old_size.w = old_size.w / (default_center.pixel_size.w or 71) * 71
+        old_size.h = old_size.h / (default_center.pixel_size.h or 95) * 95
+    end
+    if default_center.display_size then
+        print(default_center.display_size)
+        old_size.w = old_size.w / (default_center.display_size.w or 71) * 71
+        old_size.h = old_size.h / (default_center.display_size.h or 95) * 95
+    end
     card:set_ability(center, true)
+    card.T.w = old_size.w
+    card.T.h = old_size.h
+    if basegame_scales[center.key] then
+        card.T.w = card.T.w * basegame_scales[center.key].w / 71
+        card.T.h = card.T.h * basegame_scales[center.key].h / 95
+    end
+    if center.pixel_size then
+        card.T.w = card.T.w * (center.pixel_size.w or 71) / 71
+        card.T.h = card.T.h * (center.pixel_size.h or 95) / 95
+    end
+    if center.display_size then
+        card.T.w = card.T.w * (center.display_size.w or 71) / 71
+        card.T.h = card.T.h * (center.display_size.h or 95) / 95
+    end
     print("step 5")
     card:add_to_deck()
     print("step 6")

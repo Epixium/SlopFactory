@@ -515,6 +515,44 @@ return {
                 }
             }
         },
+        Spectral = {
+            c_slfa_cement = {
+                name = "Cement",
+                text = {
+                    "Add {C:dark_edition}Megaflash",
+                    "and {C:attention}Eternal{} to",
+                    "a random {C:attention}Joker",
+                },
+            }
+        },
+        Edition = {
+            e_slfa_megaflash = {
+                name = "Megaflash",
+                text = {
+                    "{C:dark_edition}#1#{} Joker slot",
+                    "Retrigger this",
+                    "card {C:attention}#2#{} times",
+                },
+            },
+            e_slfa_megaflash_playing_card = {
+                name = "Megaflash",
+                text = {
+                    "{C:dark_edition}#1#{} hand size",
+                    "Retrigger this",
+                    "card {C:attention}#2#{} times",
+                },
+            },
+        },
+        Tag = {
+            tag_slfa_megaflash = {
+                name = "Megaflash Tag",
+                text = {
+                    "Next base edition shop",
+                    "Joker is free and",
+                    "becomes {C:dark_edition}Megaflash",
+                },
+            },
+        },
         Other = {
             slfa_reroll_joker = {
                 name = "Joker Rerolling",
@@ -556,6 +594,9 @@ return {
             k_slfa_snow_joker_melted = "Melted!",
             slfa_blitzkrieg_active = "Active!",
             slfa_blitzkrieg_inactive = "Inactive",
+        },
+        labels = {
+            slfa_megaflash = "Megaflash",
         },
         poker_hands = {
             slfa_none = "None"
