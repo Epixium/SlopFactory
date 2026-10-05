@@ -13,8 +13,7 @@ return {
                 name = "Fool's Deck",
                 text = {
                     "{C:attention}+#1#{} Joker slots",
-                    "{C:red}#2#{} hand size",
-                    "Start with {C:attention,T:j_joker}\"#3#\"{}"
+                    "Earn no {C:attention}Interest",
                 }
             }
         },
@@ -38,8 +37,7 @@ return {
                 name = "Fool's Sleeve",
                 text = {
                     "{C:attention}+#1#{} Joker slots",
-                    "{C:red}#2#{} hand size",
-                    "Start with {C:attention,T:j_joker}#3#{}"
+                    "Earn no {C:attention}Interest",
                 }
             },
             sleeve_slfa_fools_alt = {
@@ -47,7 +45,8 @@ return {
                 text = {
                     "Shop has a free",
                     "{C:attention,T:p_buffoon_fools_1}#1#{}",
-                    "{C:red}#2#{} Booster slot"
+                    "All cards and packs in",
+                    "shop cost {C:red}#2#%{} more",
                 }
             },
         },

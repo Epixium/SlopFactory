@@ -9,7 +9,7 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     attributes = { 'xmult', 'scaling', 'ace', 'destroy_card' },
-    config = { extra = { Xmult_gain = 0.5, Xmult = 1 } },
+    config = { extra = { Xmult_gain = 0.25, Xmult = 1 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult } }
     end,

@@ -1,0 +1,74 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+# assertion patch for debugging
+[[patches]]
+[patches.pattern]
+target = '=[SMODS JokerDisplay "JokerDisplay.lua"]'
+pattern = '''
+SMODS.load_file("src/api_helper_functions.lua")()
+'''
+position = 'at'
+payload = '''
+assert(SMODS.load_file("src/api_helper_functions.lua"))()
+'''
+match_indent = true
+
+# --- CARD RETRIGGER CHECKS ---
+# prevent a card from triggering if it's pseudo-debuffed
+[[patches]]
+[patches.pattern]
+target = '=[SMODS JokerDisplay "src/api_helper_functions.lua"]'
+pattern = '''
+JokerDisplay.calculate_card_triggers = function(card, scoring_hand, held_in_hand)
+    if card.debuff then
+'''
+position = 'at'
+payload = '''
+JokerDisplay.calculate_card_triggers = function(card, scoring_hand, held_in_hand)
+    if card.debuff or card.pseudodebuff then
+'''
+match_indent = true
+
+# prevent a joker from calculating on a card if it's pseudo-debuffed
+[[patches]]
+[patches.pattern]
+target = '=[SMODS JokerDisplay "src/api_helper_functions.lua"]'
+pattern = '''
+local retrigger_function = not joker.debuff and joker.joker_display_values and
+'''
+position = 'at'
+payload = '''
+local retrigger_function = not (joker.debuff or joker.pseudodebuff) and joker.joker_display_values and
+'''
+match_indent = true
+
+# --- JOKER RETRIGGER CHECKS ---
+# prevent a joker from triggering if it's pseudo-debuffed
+[[patches]]
+[patches.pattern]
+target = '=[SMODS JokerDisplay "src/api_helper_functions.lua"]'
+pattern = '''
+JokerDisplay.calculate_joker_triggers = function(card)
+    if card.debuff then
+'''
+position = 'at'
+payload = '''
+JokerDisplay.calculate_joker_triggers = function(card)
+    if card.debuff or card.pseudodebuff then
+'''
+match_indent = true
+
+# prevent a joker from calculating on another joker if it's pseudo-debuffed
+[[patches]]
+[patches.pattern]
+target = '=[SMODS JokerDisplay "src/api_helper_functions.lua"]'
+pattern = '''
+retrigger_joker_function = not joker.debuff and joker.joker_display_values and joker_display_definition and
+'''
+position = 'at'
+payload = '''
+retrigger_joker_function = not (joker.debuff or joker.pseudodebuff) and joker.joker_display_values and joker_display_definition and
+'''
+match_indent = true

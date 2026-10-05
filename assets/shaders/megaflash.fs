@@ -120,10 +120,10 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     // .a is last parameter for vec4 (usually the alpha channel - transparency)
 
     // make all instances of fullwhite rainbowy and halftoned
-    if (tex.r > .8 && tex.g > .8 && tex.b > .8) {
+    if (HSL(tex).z > 0.9) {
         // # of halftone dots: 21
         // cos(20) = .40808, sin(20) = .91295
-        vec2 modded_sq_uv = square_uv + megaflash.x * 0.04;
+        vec2 modded_sq_uv = square_uv + megaflash.x * 0.04 + megaflash.y * 0.001;
         vec2 rotated_uv = vec2(
             modded_sq_uv.x * .40808 - modded_sq_uv.y * .91295, 
             modded_sq_uv.y * .40808 + modded_sq_uv.x * .91295

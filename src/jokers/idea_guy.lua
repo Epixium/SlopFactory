@@ -110,11 +110,20 @@ SMODS.Joker {
         
         -- un-override the last overridden joker
         if card.ability.overridden ~= right_joker then
-            if card.ability.overridden and card.ability.overridden.add_to_deck then
-                card.ability.overridden:add_to_deck(true)
+            if card.ability.overridden and type(card.ability.overridden) == "table" then
+                card.ability.overridden.pseudodebuff = false
+                if card.ability.overridden.add_to_deck then
+                    card.ability.overridden:add_to_deck(true)
+                end
+                if JokerDisplay then
+                    JokerDisplay.copy_display(card.ability.overridden)
+                end
             end
-            if right_joker and right_joker.remove_from_deck then
-                right_joker:remove_from_deck(true)
+            if right_joker then
+                right_joker.pseudodebuff = true
+                if right_joker.remove_from_deck then
+                    right_joker:remove_from_deck(true)
+                end
             end
             --SMODS.calculate_context({slfa_idea_guy_debuff = true, other_card = right_joker})
         end
@@ -125,8 +134,7 @@ SMODS.Joker {
         if card.ability.overridden then
             card.ability.overridden:add_to_deck(true)
             if JokerDisplay then
-                manual_joker_display_shit(card.ability.overridden)
-                card.ability.overridden:initialize_joker_display()
+                JokerDisplay.copy_display(card.ability.overridden)
             end
             card.ability.overridden = nil
         end
@@ -150,8 +158,7 @@ SMODS.Joker {
                     end
                 end
                 if card.joker_display_values.overridden and card.joker_display_values.overridden ~= right_joker then
-                    manual_joker_display_shit(card.joker_display_values.overridden)
-                    card.joker_display_values.overridden:initialize_joker_display()
+                    JokerDisplay.copy_display(card.joker_display_values.overridden)
                 end
                 card.joker_display_values.is_compatible = copied_joker ~= nil
                 card.joker_display_values.blueprint_compat = localize(card.joker_display_values.is_compatible and 'k_compatible' or 'k_incompatible')
