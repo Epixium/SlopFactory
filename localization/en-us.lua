@@ -541,6 +541,23 @@ return {
                     "card {C:attention}#2#{} times",
                 },
             },
+            e_slfa_fresh = {
+                name = "Fresh",
+                text = {
+                    "When {C:attention}Blind{} is",
+                    "skipped, create",
+                    "{C:attention}#1#{} random {C:attention}Tags",
+                },
+            },
+            e_slfa_fresh_playing_card = {
+                name = "Fresh",
+                text = {
+                    "If {C:attention}Blind{} is defeated",
+                    "in {C:attention}one hand{} with",
+                    "this card, create",
+                    "{C:attention}#1#{} random {C:attention}Tags",
+                },
+            },
         },
         Tag = {
             tag_slfa_megaflash = {
@@ -549,6 +566,14 @@ return {
                     "Next base edition shop",
                     "Joker is free and",
                     "becomes {C:dark_edition}Megaflash",
+                },
+            },
+            tag_slfa_fresh = {
+                name = "Fresh Tag",
+                text = {
+                    "Next base edition shop",
+                    "Joker is free and",
+                    "becomes {C:dark_edition}Fresh",
                 },
             },
         },
@@ -596,6 +621,7 @@ return {
         },
         labels = {
             slfa_megaflash = "Megaflash",
+            slfa_fresh = "Fresh",
         },
         poker_hands = {
             slfa_none = "None"

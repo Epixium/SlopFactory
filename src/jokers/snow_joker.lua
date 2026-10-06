@@ -138,10 +138,12 @@ SMODS.Joker:take_ownership('splash', {
     end,
 }, true)
 
-JokerDisplay.Definitions['j_splash'] = {
-    text = {
-        { text = "+" },
-        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult" },
-    },
-    text_config = { colour = G.C.CHIPS },
-}
+if JokerDisplay then
+   JokerDisplay.Definitions['j_splash'] = {
+        text = {
+            { text = "+" },
+            { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult" },
+        },
+        text_config = { colour = G.C.CHIPS },
+    } 
+end

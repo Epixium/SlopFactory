@@ -125,6 +125,7 @@ SMODS.Joker {
                     right_joker:remove_from_deck(true)
                 end
             end
+            --JokerDisplay.update_all_joker_display(nil, nil, 'slfa_idea_guy');
             --SMODS.calculate_context({slfa_idea_guy_debuff = true, other_card = right_joker})
         end
 
@@ -148,21 +149,19 @@ SMODS.Joker {
             },
             calc_function = function(card)
                 local _, right_joker = get_side_jokers(card)
-                local copied_joker, copied_debuff = JokerDisplay.calculate_blueprint_copy(card)
+                local copied = false
                 if right_joker then
+                    local copied_joker, copied_debuff = JokerDisplay.calculate_blueprint_copy(card)
+                    copied = copied_joker ~= nil
                     right_joker.joker_display_values = right_joker.joker_display_values or {}
-                    local definition = JokerDisplay.Definitions[right_joker.config.center.key]
                     JokerDisplay.copy_display(right_joker, copied_joker, copied_debuff)
+                    local definition = JokerDisplay.Definitions[right_joker.config.center.key]
                     if definition and definition.get_blueprint_joker then
                         right_joker.joker_display_stop_calc = true
                     end
                 end
-                if card.joker_display_values.overridden and card.joker_display_values.overridden ~= right_joker then
-                    JokerDisplay.copy_display(card.joker_display_values.overridden)
-                end
-                card.joker_display_values.is_compatible = copied_joker ~= nil
+                card.joker_display_values.is_compatible = copied
                 card.joker_display_values.blueprint_compat = localize(card.joker_display_values.is_compatible and 'k_compatible' or 'k_incompatible')
-                card.joker_display_values.overridden = right_joker
             end,
             style_function = function(card, text, reminder_text, extra)
                 if reminder_text and reminder_text.children[2] then
@@ -172,7 +171,7 @@ SMODS.Joker {
             get_blueprint_joker = function(card)
                 for i = 1, #G.jokers.cards do
                     if G.jokers.cards[i] == card then
-                        return G.jokers.cards[i-1]
+                        return G.jokers.cards[i - 1]
                     end
                 end
                 return nil

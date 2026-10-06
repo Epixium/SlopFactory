@@ -36,11 +36,11 @@ match_indent = true
 [patches.pattern]
 target = '=[SMODS JokerDisplay "src/api_helper_functions.lua"]'
 pattern = '''
-local retrigger_function = not joker.debuff and joker.joker_display_values and
+((joker_display_definition and joker_display_definition.retrigger_function) or
 '''
 position = 'at'
 payload = '''
-local retrigger_function = not (joker.debuff or joker.pseudodebuff) and joker.joker_display_values and
+((not joker.pseudodebuff and joker_display_definition and joker_display_definition.retrigger_function) or
 '''
 match_indent = true
 

@@ -11,7 +11,10 @@ SMODS.Edition {
     sound = { sound = 'slfa_megaflash', per = 1.05, vol = 1.5 },
     attributes = { 'joker_slot', 'retrigger', },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.edition.card_limit, card.edition.repetitions } }
+        return { vars = {
+            card.edition and card.edition.card_limit or self.config.card_limit,
+            card.edition and card.edition.repetitions or self.config.repetitions
+        } }
     end,
     get_weight = function(self)
         return self.weight
@@ -50,14 +53,16 @@ SMODS.Edition {
     end,
 }
 
-JokerDisplay.Edition_Definitions["e_slfa_megaflash"] = {
-    condition_function = function(card)
-        return not card.debuff and card.edition and card.edition.key and card.edition.key == "e_slfa_megaflash"
-    end,
-    mod_function = function(card)
-        return { }
-    end,
-    retrigger_joker_function = function(card)
-        return card.edition.config.repetitions
-    end
-}
+if JokerDisplay then
+   JokerDisplay.Edition_Definitions["e_slfa_megaflash"] = {
+        condition_function = function(card)
+            return not card.debuff and card.edition and card.edition.key and card.edition.key == "e_slfa_megaflash"
+        end,
+        mod_function = function(card)
+            return { }
+        end,
+        retrigger_joker_function = function(card)
+            return card.edition.config.repetitions
+        end
+    } 
+end
