@@ -552,10 +552,28 @@ return {
             e_slfa_fresh_playing_card = {
                 name = "Fresh",
                 text = {
-                    "If {C:attention}Blind{} is defeated",
-                    "in {C:attention}one hand{} with",
-                    "this card, create",
-                    "{C:attention}#1#{} random {C:attention}Tags",
+                    "If {C:attention}first{} hand of round",
+                    "has only {C:attention}this{} card,",
+                    "create {C:attention}#1#{} random {C:attention}Tags",
+                },
+            },
+            e_slfa_halftone = {
+                name = "Halftone",
+                text = {
+                    "Earn {C:money}$#1#{} at",
+                    "end of round",
+                    "Increases by {C:money}$#2#{} if",
+                    "this {C:attention}did not trigger",
+                    "this round"
+                },
+            },
+            e_slfa_halftone_playing_card = {
+                name = "Halftone",
+                text = {
+                    "Earn {C:money}$#1#{} if held in",
+                    "hand at end of round",
+                    "Increases by {C:money}$#2# if this",
+                    "card {C:attention}did not score{} this round",
                 },
             },
         },
@@ -574,6 +592,14 @@ return {
                     "Next base edition shop",
                     "Joker is free and",
                     "becomes {C:dark_edition}Fresh",
+                },
+            },
+            tag_slfa_halftone = {
+                name = "Halftone Tag",
+                text = {
+                    "Next base edition shop",
+                    "Joker is free and",
+                    "becomes {C:dark_edition}Halftone",
                 },
             },
         },
@@ -622,6 +648,7 @@ return {
         labels = {
             slfa_megaflash = "Megaflash",
             slfa_fresh = "Fresh",
+            slfa_halftone = "Halftone",
         },
         poker_hands = {
             slfa_none = "None"

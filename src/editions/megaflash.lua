@@ -11,21 +11,19 @@ SMODS.Edition {
     sound = { sound = 'slfa_megaflash', per = 1.05, vol = 1.5 },
     attributes = { 'joker_slot', 'retrigger', },
     loc_vars = function(self, info_queue, card)
-        return { vars = {
-            card.edition and card.edition.card_limit or self.config.card_limit,
-            card.edition and card.edition.repetitions or self.config.repetitions
-        } }
+        return { vars = { self.config.card_limit, self.config.repetitions },
+                key = SMODS.is_playing_card(card) and self.key .. "_playing_card" or self.key }
     end,
     get_weight = function(self)
         return self.weight
     end,
     calculate = function(self, card, context)
         if (context.repetition or context.retrigger_joker_check) and context.other_card == card then
-            return { repetitions = self.config.repetitions }
+            return { repetitions = G.P_CENTERS[card.edition.key].config.repetitions }
         end
     end,
     on_apply = function(card)
-        if card.ability.set == "Base" or card.ability.set == "Enhanced" then return end
+        if SMODS.is_playing_card(card) then return end
         card.T.w = card.T.w * 1.3
         card.T.h = card.T.h * 1.3
         if card.children.floating_sprite then
@@ -34,7 +32,7 @@ SMODS.Edition {
         end
     end,
     on_remove = function(card)
-        if card.ability.set == "Base" or card.ability.set == "Enhanced" then return end
+        if SMODS.is_playing_card(card) then return end
         card.T.w = card.T.w / 1.3
         card.T.h = card.T.h / 1.3
         if card.children.floating_sprite then
@@ -43,7 +41,7 @@ SMODS.Edition {
         end
     end,
     on_load = function(card)
-        if card.ability.set == "Base" or card.ability.set == "Enhanced" then return end
+        if SMODS.is_playing_card(card) then return end
         card.T.w = card.T.w * 1.3
         card.T.h = card.T.h * 1.3
         if card.children.floating_sprite then
@@ -62,7 +60,7 @@ if JokerDisplay then
             return { }
         end,
         retrigger_joker_function = function(card)
-            return card.edition.config.repetitions
+            return G.P_CENTERS[card.edition.key].config.repetitions
         end
-    } 
+    }
 end

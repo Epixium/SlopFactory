@@ -10,7 +10,7 @@
 // Values of this variable:
 // self.ARGS.send_to_shader[1] = math.min(self.VT.r*3, 1) + (math.sin(G.TIMERS.REAL/28) + 1) + (self.juice and self.juice.r*20 or 0) + self.tilt_var.amt
 // self.ARGS.send_to_shader[2] = G.TIMERS.REAL
-extern PRECISION vec2 fresh;
+extern PRECISION vec2 halftone;
 
 extern PRECISION number dissolve;
 extern PRECISION number time;
@@ -28,6 +28,27 @@ extern PRECISION vec4 burn_colour_2;
 // [Required] 
 // Apply dissolve effect (when card is being "burnt", e.g. when consumable is used)
 vec4 dissolve_mask(vec4 tex, vec2 texture_coords, vec2 uv);
+
+vec2 rotate(vec2 p, number a) {
+    return vec2(p.x*cos(a)-p.y*sin(a), p.y*cos(a)+p.x*sin(a));
+}
+
+vec4 uv_to_texel(Image texture, vec2 uv_coords)
+{
+    // texcoords to uv: uv = ( ((coords * image size)) - texture pos * texture height ) / texture height
+    // coords = (uv + texture pos) * texture height / image size
+    return Texel(texture, (uv_coords + texture_details.xy)*texture_details.ba / image_details);
+}
+
+vec4 CMYK(vec4 color)
+{
+    number k = 1. - max(max(color.r, color.g), color.b);
+    number c = (1. - color.r - k) / (1. - k);
+    number m = (1. - color.g - k) / (1. - k);
+    number y = (1. - color.b - k) / (1. - k);
+    
+    return vec4(c, m, y, k);
+}
 
 number hue(number s, number t, number h)
 {
@@ -72,20 +93,53 @@ vec4 HSL(vec4 c)
 	return hsl;
 }
 
-vec4 offset_tex(Image texture, vec2 texture_coords, number offset) {
-    vec4 tex = Texel(texture, texture_coords+vec2(offset/image_details.x,0));
-    if (tex.a == 0) { tex = vec4(1, 1, 1, 0); }
-    return tex;
-}
-
-vec3 burn(vec3 x, vec3 b)
-{
-    return 1 - (1 - x) / b;
-}
-
-vec3 dodge(vec3 x, vec3 b)
+vec3 dodge(vec3 x, number b)
 {
     return x / (1 - b);
+}
+
+// based on https://godotshaders.com/shader/canvas-item-halftone-shader/
+vec4 one_pass(Image texture, vec2 uv) {
+
+    number a = uv_to_texel(texture, uv).a;
+    if (a == 0.) { return vec4(0); }
+
+    vec2 c_uv = rotate(uv + vec2(0.0035, -.0053) - 0.5, 0.003) + 0.5;
+    vec2 m_uv = rotate(uv + vec2(-.0072, 0.0048) - 0.5, 0.011) + 0.5;
+    vec2 y_uv = rotate(uv + vec2(0.0078, -.0032) - 0.5, -.007) + 0.5;
+    vec2 k_uv = rotate(uv + vec2(0.0004, 0.0005) - 0.5, 0.000) + 0.5;
+
+    vec4 c_base = uv_to_texel(texture, c_uv);
+    vec4 m_base = uv_to_texel(texture, m_uv);
+    vec4 y_base = uv_to_texel(texture, y_uv);
+    vec4 k_base = uv_to_texel(texture, k_uv);
+    
+    number c_k = 1. - max(max(c_base.r, c_base.g), c_base.b);
+    number m_k = 1. - max(max(m_base.r, m_base.g), m_base.b);
+    number y_k = 1. - max(max(y_base.r, y_base.g), y_base.b);
+
+    number k = 1. - max(max(k_base.r, k_base.g), k_base.b);
+    number c = (1. - c_base.r - c_k) / (1. - c_k);
+    number m = (1. - m_base.g - m_k) / (1. - m_k);
+    number y = (1. - y_base.b - y_k) / (1. - y_k);
+
+    vec2 dot_size = vec2(30.);
+    dot_size.y = dot_size.y * texture_details.a / texture_details.b;
+    vec2 pattern_uv = mod(rotate((uv-0.5)*dot_size, 0.58+0.094*halftone.x)+0.5*dot_size, 1)*2-1;
+    number threshold = sqrt(pattern_uv.x * pattern_uv.x + pattern_uv.y * pattern_uv.y) * 0.6;
+
+    vec3 paper_base = vec3(1.);
+    if (c > threshold)
+    { paper_base.rgb = paper_base.rgb - (vec3(1.) - vec3(0.121,0.895,0.961)); }
+    if (m > threshold) 
+    { paper_base.rgb = paper_base.rgb - (vec3(1.) - vec3(0.924,0.113,0.918)); }
+    if (y > threshold) 
+    { paper_base.rgb = paper_base.rgb - (vec3(1.) - vec3(0.989,0.912,0.115)); }
+    if (k > threshold)
+    { paper_base.rgb = paper_base.rgb - (vec3(1.) - vec3(0.233,0.252,0.285)); }
+
+    return vec4(paper_base, a);
+
 }
 
 // This is what actually changes the look of card
@@ -94,71 +148,27 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     // Take pixel color (rgba) from `texture` at `texture_coords`, equivalent of texture2D in GLSL
     vec4 tex = Texel(texture, texture_coords);
     // Position of a pixel within the sprite
+    // ( ((coords * image size)) - texture pos * texture height ) / texture height
 	vec2 uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.ba)/texture_details.ba;
-    
-    // For all vectors (vec2, vec3, vec4), .rgb is equivalent of .xyz, so uv.y == uv.g
-    // .a is last parameter for vec4 (usually the alpha channel - transparency)
-
+    // everyday i'm dapplin'
+    tex.rgb = one_pass(texture, uv).rgb * (1. + halftone.x * 0.001);
+    // desaturate the result slightly to fit the balatro style
     //vec4 hsl = HSL(tex);
-    //if (hsl.y > 0.1) {
-    //    vec4 rgb = vec4(1);
-    //    if (hsl.x < 0.1) { // should be magenta
-    //        rgb = RGB(vec4(0.85 * .9 + (hsl.x-1+.85) * .1, hsl.y * 1.5, hsl.z + 0.1, hsl.a));
-    //    } else if (hsl.x > 0.6) {
-    //        rgb = RGB(vec4(0.85 * .9 + (hsl.x - .85) * .1, hsl.y * 1.5, hsl.z + 0.1, hsl.a));
-    //    } else if (hsl.x < 0.4) { // should be yellow
-    //        rgb = RGB(vec4(0.20 * .9 + (hsl.x - .20) * .1, hsl.y * 1.0, hsl.z,       hsl.a));
-    //    } else { // should be cyan
-    //        rgb = RGB(vec4(0.50 * .9 + (hsl.x - .50) * .1, hsl.y * 1.1, hsl.z,       hsl.a));
-    //    }
-    //    tex = tex * 0.5 + rgb * 0.5;
-    //}
-    //vec4 hsl = HSL(tex);
-    //tex = RGB(vec4(hsl.x, hsl.y * 0.8, hsl.z * 0.95, hsl.a));
-    tex.rgb = tex.rgb * (1 - fresh.x * 0.01);
-    // color bleeding into lighter colors
-    vec4 ltex  = (offset_tex(texture, texture_coords, -2)*4 
-                + offset_tex(texture, texture_coords, -3)*2
-                + offset_tex(texture, texture_coords, -4)
-                )/7;
-    vec4 rtex  = (offset_tex(texture, texture_coords, 2)*4 
-                + offset_tex(texture, texture_coords, 3)*2
-                + offset_tex(texture, texture_coords, 4)
-                )/7;
-    tex.rgb = tex.rgb * min((tex.rgb + ltex.rgb + rtex.rgb)/tex.rgb/3, 1.);
-    // dodge it to lighten it up
-    tex.rgb = dodge(tex.rgb, vec3(0.1));
-    // pink/yellow it a lil bit
-    vec4 color_mod = RGB(vec4(mod(.8333 + .3333 * uv.y, 1.), 1., 0.77, 1.));
-    tex.rgb = tex.rgb * color_mod.rgb;
-    // burn it a lil bit
-    tex.rgb = tex.rgb * 0.6 + burn(tex.rgb, vec3(0.95, 0.81, 0.88)) * 0.4;
-    // apply color bleeding
-    vec3 mix = tex.gbr + tex.brg;
-    tex.rgb += mix * mix * 0.02;
-    // desaturate to fit with balatro more
-    vec4 hsl = HSL(tex);
-    hsl.y = hsl.y * 0.82;
-    tex = RGB(hsl);
+    //tex = RGB(vec4(hsl.x, hsl.y * 0.9, hsl.z, hsl.a));
+    // generic shimmer copied straight from negative_shine.fs
+    number low = min(tex.r, min(tex.g, tex.b));
+    number high = max(tex.r, max(tex.g, tex.b));
+    number delta = high-low -0.1;
 
-    // isolate into individual lights
-    number column = mod(uv.x * texture_details.z * 3 / 2 + fresh.x * 2.35 + fresh.y * 0.18, 1.0);
-    if (column < 0.3333) {
-        number middlage = 1. - ((column * 6.)-1) * ((column * 6.)-1);
-        tex.rgb = dodge(tex.rgb * vec3(1.25, 0.91, 0.905), vec3(middlage * 0.2));
-    } else if (column < 0.6667) {
-        number middlage = 1. - ((column * 6.)-3) * ((column * 6.)-3);
-        tex.rgb = dodge(tex.rgb * vec3(0.91, 1.25, 0.920), vec3(middlage * 0.2));
-    } else {
-        number middlage = 1. - ((column * 6.)-5) * ((column * 6.)-5);
-        tex.rgb = dodge(tex.rgb * vec3(0.92, 0.905, 1.25), vec3(middlage * 0.2));
-    }
-    number row = mod(uv.y * texture_details.a / 3 + fresh.y * 2.35 + fresh.x * 0.18, 1.0);
-    if (row > 0.6) {
-        tex.rgb = tex.rgb * 0.86;
-    }
-    // dodge it to lighten it up
-    tex.rgb = dodge(tex.rgb, vec3(0.2));
+    number fac = 0.8 + 0.9*sin(11.*uv.x+4.32*uv.y + halftone.r*12. + cos(halftone.r*5.3 + uv.y*4.2 - uv.x*4.));
+    number fac2 = 0.5 + 0.5*sin(8.*uv.x+2.32*uv.y + halftone.r*5. - cos(halftone.r*2.3 + uv.x*8.2));
+    number fac3 = 0.5 + 0.5*sin(10.*uv.x+5.32*uv.y + halftone.r*6.111 + sin(halftone.r*5.3 + uv.y*3.2));
+    number fac4 = 0.5 + 0.5*sin(3.*uv.x+2.32*uv.y + halftone.r*8.111 + sin(halftone.r*1.3 + uv.y*11.2));
+    number fac5 = sin(0.9*16.*uv.x+5.32*uv.y + halftone.r*12. + cos(halftone.r*5.3 + uv.y*4.2 - uv.x*4.));
+
+    number maxfac = max(max(fac, max(fac2, max(fac3,0.0))) + (fac+fac2+fac3*fac4), 0.);
+
+    tex.rgb = min(tex.rgb * vec3(.86, .982, .965) + maxfac * 0.028, 1.);
 
     // required
     return dissolve_mask(tex*colour, texture_coords, uv);
@@ -176,12 +186,12 @@ vec4 dissolve_mask(vec4 tex, vec2 texture_coords, vec2 uv)
 	vec2 floored_uv = (floor((uv*texture_details.ba)))/max(texture_details.b, texture_details.a);
     vec2 uv_scaled_centered = (floored_uv - 0.5) * 2.3 * max(texture_details.b, texture_details.a);
 	
-	vec2 field_part1 = uv_scaled_centered + 50.*vec2(sin(-t / 143.6340), cos(-t / 99.4324));
+	vec2 field_part1 = uv_scaled_centered + 50.*vec2(sin(-t / 143.6340), cos(-t / 971.4324));
 	vec2 field_part2 = uv_scaled_centered + 50.*vec2(cos( t / 53.1532),  cos( t / 61.4532));
-	vec2 field_part3 = uv_scaled_centered + 50.*vec2(sin(-t / 87.53218), sin(-t / 49.0000));
+	vec2 field_part3 = uv_scaled_centered + 50.*vec2(sin(-t / 87.53218), sin(-t / 471.0000));
 
     float field = (1.+ (
-        cos(length(field_part1) / 19.483) + sin(length(field_part2) / 33.155) * cos(field_part2.y / 15.73) +
+        cos(length(field_part1) / 171.483) + sin(length(field_part2) / 33.155) * cos(field_part2.y / 15.73) +
         cos(length(field_part3) / 27.193) * sin(field_part3.x / 21.92) ))/2.;
     vec2 borders = vec2(0.2, 0.8);
 

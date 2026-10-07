@@ -3,7 +3,7 @@ local function get_valid_jokers()
     local editionless_jokers = SMODS.Edition:get_edition_cards(G.jokers, true)
     local valid_jokers = {}
     for _, joker in ipairs(editionless_jokers) do
-        if joker.eternal_compat ~= false and not joker.ability.perishable and not joker.ability.eternal then
+        if joker.eternal_compat ~= false and not joker.ability.perishable then
             valid_jokers[#valid_jokers+1] = joker
         end
     end
