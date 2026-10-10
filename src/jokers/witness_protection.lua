@@ -8,6 +8,7 @@ SMODS.Joker {
     },
     rarity = 1,
     cost = 4,
+    slfa_bloat = true,
     attributes = { 'mult', 'scaling', 'rank', 'ace', 'two', 'three', 'four', 'five' },
     config = { extra = { mult_gain = 2, mult = 0 } },
     loc_vars = function(self, info_queue, card)

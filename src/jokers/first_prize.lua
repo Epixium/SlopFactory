@@ -7,6 +7,7 @@ SMODS.Joker {
     },
     rarity = 2,
     cost = 6,
+    slfa_bloat = true,
     attributes = { 'rank', 'retrigger' },
     config = { extra = { repetitions = 2, rank = nil, id = nil } },
     loc_vars = function(self, info_queue, card)

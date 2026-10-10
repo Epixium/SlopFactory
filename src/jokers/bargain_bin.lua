@@ -12,6 +12,7 @@ SMODS.Joker {
     },
     rarity = 1,
     cost = 5,
+    slfa_bloat = true,
     attributes = { 'shop', 'economy', 'sell_value', 'joker', 'rarity' },
     config = { extra = { dollars = 2 } },
     loc_vars = function(self, info_queue, card)

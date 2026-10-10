@@ -8,6 +8,7 @@ SMODS.Joker {
     },
     rarity = 1,
     cost = 5,
+    slfa_bloat = true,
     attributes = { 'chips', 'shop', 'scaling' },
     config = { extra = { chips_gain = 4, dollars = 25, chips = 0, } },
     loc_vars = function(self, info_queue, card)

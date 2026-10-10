@@ -28,6 +28,7 @@ SMODS.Joker {
     },
     rarity = 3,
     cost = 10,
+    slfa_bloat = true,
     attributes = { 'position', 'value_manip' },
     config = { extra = { value_mult = 2 } },
     loc_vars = function(self, info_queue, card)

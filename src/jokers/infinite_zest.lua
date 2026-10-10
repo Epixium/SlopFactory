@@ -10,6 +10,7 @@ SMODS.Joker {
     },
     rarity = 2,
     cost = 7,
+    slfa_bloat = true,
     attributes = { 'reroll_joker', 'joker', 'food' },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = { set = "Other", key = "slfa_reroll_joker", vars = { 25, 25 } }
