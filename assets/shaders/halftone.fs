@@ -33,12 +33,21 @@ vec2 rotate(vec2 p, number a) {
     return vec2(p.x*cos(a)-p.y*sin(a), p.y*cos(a)+p.x*sin(a));
 }
 
-vec4 uv_to_texel(Image texture, vec2 uv_coords)
-{
+vec2 texture_coords_to_uv(Image texture, vec2 texture_coords) {
+    return (texture_coords*image_details)/texture_details.ba - texture_details.xy;
+}
+
+// for pixel coords, you just add pixel_offset/image_details to texture coords
+// (texture_coords*image_details+pixel_offset)/texture_details.ba
+
+
+vec2 uv_to_texture_coords(Image texture, vec2 uv_coords) {
     // texcoords to uv: uv = ( ((coords * image size)) - texture pos * texture height ) / texture height
     // coords = (uv + texture pos) * texture height / image size
-    return Texel(texture, (uv_coords + texture_details.xy)*texture_details.ba / image_details);
+    return (uv_coords + texture_details.xy)*texture_details.ba / image_details;
 }
+
+// (uv_coords + texture_details.xy)
 
 vec4 CMYK(vec4 color)
 {
@@ -98,10 +107,9 @@ vec3 dodge(vec3 x, number b)
     return x / (1 - b);
 }
 
-// based on https://godotshaders.com/shader/canvas-item-halftone-shader/
-vec4 one_pass(Image texture, vec2 uv) {
+vec4 get_colors(Image texture, vec2 uv) {
 
-    number a = uv_to_texel(texture, uv).a;
+    number a = Texel(texture, uv_to_texture_coords(texture, uv)).a;
     if (a == 0.) { return vec4(0); }
 
     vec2 c_uv = rotate(uv + vec2(0.0035, -.0053) - 0.5, 0.003) + 0.5;
@@ -109,10 +117,10 @@ vec4 one_pass(Image texture, vec2 uv) {
     vec2 y_uv = rotate(uv + vec2(0.0078, -.0032) - 0.5, -.007) + 0.5;
     vec2 k_uv = rotate(uv + vec2(0.0004, 0.0005) - 0.5, 0.000) + 0.5;
 
-    vec4 c_base = uv_to_texel(texture, c_uv);
-    vec4 m_base = uv_to_texel(texture, m_uv);
-    vec4 y_base = uv_to_texel(texture, y_uv);
-    vec4 k_base = uv_to_texel(texture, k_uv);
+    vec4 c_base = Texel(texture, uv_to_texture_coords(texture, c_uv));
+    vec4 m_base = Texel(texture, uv_to_texture_coords(texture, m_uv));
+    vec4 y_base = Texel(texture, uv_to_texture_coords(texture, y_uv));
+    vec4 k_base = Texel(texture, uv_to_texture_coords(texture, k_uv));
     
     number c_k = 1. - max(max(c_base.r, c_base.g), c_base.b);
     number m_k = 1. - max(max(m_base.r, m_base.g), m_base.b);
@@ -123,38 +131,81 @@ vec4 one_pass(Image texture, vec2 uv) {
     number m = (1. - m_base.g - m_k) / (1. - m_k);
     number y = (1. - y_base.b - y_k) / (1. - y_k);
 
-    vec2 dot_size = vec2(30.);
+    return vec4(c, m, y, k);
+
+}
+
+vec2 to_halftone_coords(vec2 uv, vec2 dot_size, number rotation) {
+    return rotate((uv-0.5)*dot_size, 0.58+0.094*halftone.x+0.00238*halftone.y+rotation)+0.5*dot_size;
+}
+
+// htc = rotate((uv-0.5)*dot_size, 0.58+0.094*halftone.x)+0.5*dot_size;
+// htc - 0.5 * dot_size = rotate((uv-0.5)*dot_size, 0.58+0.094*halftone.x);
+// rotate(htc - 0.5 * dot_size, -0.58-0.094*halftone.x) = (uv-0.5)*dot_size
+// rotate(htc - 0.5 * dot_size, -0.58-0.094*halftone.x).dot_size+0.5 = uv
+
+vec2 round_to_halftone(vec2 uv, vec2 dot_size, vec2 offset, number rotation) {
+    vec2 htc = to_halftone_coords(uv+offset, dot_size, rotation);
+    htc = floor(htc);
+    return rotate(htc - 0.5 * dot_size, -0.58-0.094*halftone.x-0.00238*halftone.y-rotation)/dot_size + 0.5;
+}
+
+vec3 apply_colors(vec3 paper_base, vec4 c, number threshold) {
+    // cyan
+    if (c.x > threshold) { paper_base.rgb = paper_base.rgb - (vec3(1.) - vec3(0.121,0.895,0.961)); }
+    // magenta
+    if (c.y > threshold) { paper_base.rgb = paper_base.rgb - (vec3(1.) - vec3(0.924,0.113,0.918)); }
+    // yellow
+    if (c.z > threshold) { paper_base.rgb = paper_base.rgb - (vec3(1.) - vec3(0.989,0.912,0.115)); }
+    // black
+    if (c.a > threshold) { paper_base.rgb = paper_base.rgb - (vec3(1.) - vec3(0.333,0.352,0.385)); }
+
+    return paper_base;
+}
+
+vec4 one_pass(Image texture, vec2 uv, number d, vec2 slight_offset, number slight_rotation) {
+
+    number a = Texel(texture, uv_to_texture_coords(texture, uv)).a;
+    if (a == 0.) { return vec4(0); }
+
+    vec2 dot_size = vec2(d);
     dot_size.y = dot_size.y * texture_details.a / texture_details.b;
-    vec2 pattern_uv = mod(rotate((uv-0.5)*dot_size, 0.58+0.094*halftone.x)+0.5*dot_size, 1)*2-1;
-    number threshold = sqrt(pattern_uv.x * pattern_uv.x + pattern_uv.y * pattern_uv.y) * 0.6;
+
+    vec2 rounded = round_to_halftone(uv, dot_size, slight_offset, slight_rotation)+vec2(1/texture_details.b,0);
+    vec4 c = get_colors(texture, rounded);
+
+    vec2 halftone_uv = to_halftone_coords(uv + slight_offset, dot_size, slight_rotation);
+    vec2 pattern_uv = mod(halftone_uv, 1)*2-1;
+    number threshold = sqrt(pattern_uv.x * pattern_uv.x + pattern_uv.y * pattern_uv.y); // 1/sqrt(2)
 
     vec3 paper_base = vec3(1.);
-    if (c > threshold)
-    { paper_base.rgb = paper_base.rgb - (vec3(1.) - vec3(0.121,0.895,0.961)); }
-    if (m > threshold) 
-    { paper_base.rgb = paper_base.rgb - (vec3(1.) - vec3(0.924,0.113,0.918)); }
-    if (y > threshold) 
-    { paper_base.rgb = paper_base.rgb - (vec3(1.) - vec3(0.989,0.912,0.115)); }
-    if (k > threshold)
-    { paper_base.rgb = paper_base.rgb - (vec3(1.) - vec3(0.233,0.252,0.285)); }
+    paper_base = apply_colors(paper_base, c, threshold);
 
     return vec4(paper_base, a);
 
 }
 
 // This is what actually changes the look of card
-vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords )
+vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords)
 {
     // Take pixel color (rgba) from `texture` at `texture_coords`, equivalent of texture2D in GLSL
     vec4 tex = Texel(texture, texture_coords);
     // Position of a pixel within the sprite
     // ( ((coords * image size)) - texture pos * texture height ) / texture height
 	vec2 uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.ba)/texture_details.ba;
-    // everyday i'm dapplin'
-    tex.rgb = one_pass(texture, uv).rgb * (1. + halftone.x * 0.001);
+    // dummy so the game doesnt complain
+    vec4 col = vec4(one_pass(texture, uv, 31.88, vec2(0.), 0).rgb
+            * one_pass(texture, uv, 62.356, vec2(0.), 0).rgb
+            * one_pass(texture, uv, 36.5, vec2(0.), 0).rgb
+            * one_pass(texture, uv, 48.51, vec2(0.), 0).rgb
+            * one_pass(texture, uv, 31., vec2(0.001), 0.002).rgb
+            , 1.);
+
     // desaturate the result slightly to fit the balatro style
-    //vec4 hsl = HSL(tex);
-    //tex = RGB(vec4(hsl.x, hsl.y * 0.9, hsl.z, hsl.a));
+    vec4 hsl = HSL(col);
+    col = RGB(vec4(hsl.x, hsl.y * 0.8, hsl.z * 0.8 + 0.2, hsl.a));
+    tex.rgb = (tex.rgb * 0.2 + 0.8) * col.rgb;
+
     // generic shimmer copied straight from negative_shine.fs
     number low = min(tex.r, min(tex.g, tex.b));
     number high = max(tex.r, max(tex.g, tex.b));
@@ -168,8 +219,8 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
 
     number maxfac = max(max(fac, max(fac2, max(fac3,0.0))) + (fac+fac2+fac3*fac4), 0.);
 
-    tex.rgb = min(tex.rgb * vec3(.86, .982, .965) + maxfac * 0.028, 1.);
-
+    tex.rgb = min(tex.rgb * vec3(.86, .892, .885) + maxfac * 0.053, 1.);
+    
     // required
     return dissolve_mask(tex*colour, texture_coords, uv);
 }

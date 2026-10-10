@@ -1,0 +1,35 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+if obj and obj.add_to_deck and type(obj.add_to_deck) == 'function' then
+    obj:add_to_deck(self, from_debuff)
+'''
+position = 'after'
+payload = '''
+end
+local edition = G.P_CENTERS[self.edition and self.edition.key]
+if edition and edition.add_to_deck and type(edition.add_to_deck) == 'function' then
+    edition:add_to_deck(self, from_debuff)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+if obj and obj.remove_from_deck and type(obj.remove_from_deck) == 'function' then
+    obj:remove_from_deck(self, from_debuff)
+'''
+position = 'after'
+payload = '''
+end
+local edition = G.P_CENTERS[self.edition and self.edition.key]
+if edition and edition.remove_from_deck and type(edition.remove_from_deck) == 'function' then
+    edition:remove_from_deck(self, from_debuff)
+'''
+match_indent = true

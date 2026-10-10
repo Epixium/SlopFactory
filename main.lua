@@ -5,7 +5,8 @@ SlopFactory = {
                 G.GAME.slfa = {}
             end
         end
-    }
+    },
+    calculate_steps = {}
 }
 
 SMODS.current_mod.optional_features = {
@@ -115,4 +116,16 @@ function SMODS.current_mod.reset_game_globals(run_start)
     for _, func in ipairs(SlopFactory.resetters) do
         func(run_start)
     end
+end
+
+SMODS.current_mod.calculate = function(self, context)
+    local effects = {}
+    for _, func in ipairs(SlopFactory.calculate_steps) do
+        local ret = func(context)
+        if ret then
+            effects[#effects+1] = ret
+        end
+    end
+    if #effects == 0 then return end
+    return SMODS.merge_effects(effects)
 end

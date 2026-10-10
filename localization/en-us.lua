@@ -552,28 +552,26 @@ return {
             e_slfa_fresh_playing_card = {
                 name = "Fresh",
                 text = {
-                    "If {C:attention}first{} hand of round",
-                    "has only {C:attention}this{} card,",
-                    "create {C:attention}#1#{} random {C:attention}Tags",
+                    "If scoring hand",
+                    "contains a {C:dark_edition}Fresh{} card,",
+                    "{C:red}-#2#{} hand and create",
+                    "{C:attention}#1#{} random {C:attention}Tags",
+                    "{C:inactive,s:0.8}(Per-hand, not per-card)",
                 },
             },
             e_slfa_halftone = {
                 name = "Halftone",
                 text = {
-                    "Earn {C:money}$#1#{} at",
-                    "end of round",
-                    "Increases by {C:money}$#2#{} if",
-                    "this {C:attention}did not trigger",
-                    "this round"
+                    "{C:attention}+#1#{} discard",
+                    "selection limit",
                 },
             },
             e_slfa_halftone_playing_card = {
                 name = "Halftone",
                 text = {
-                    "Earn {C:money}$#1#{} if held in",
-                    "hand at end of round",
-                    "Increases by {C:money}$#2# if this",
-                    "card {C:attention}did not score{} this round",
+                    "{C:attention}+#1#{} discard",
+                    "selection limit",
+                    "while held in hand"
                 },
             },
         },
