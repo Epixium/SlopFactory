@@ -40,13 +40,6 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
-    key = 'tarots_fd',
-    path = 'tarots_fd.png',
-    px = 71,
-    py = 95
-}
-
-SMODS.Atlas {
     key = 'spectrals',
     path = 'spectrals.png',
     px = 71,
@@ -106,10 +99,6 @@ SlopFactory.load_src('boosters')
 SlopFactory.load_src('tags')
 SlopFactory.load_src('backs')
 if next(SMODS.find_mod('CardSleeves')) then SlopFactory.load_src('sleeves') end
-
-if next(SMODS.find_mod("FoolsDisplay")) then
-    assert(SMODS.load_file("src/fools_display.lua"))()
-end
 
 --#endregion
 
