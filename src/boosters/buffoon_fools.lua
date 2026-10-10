@@ -5,7 +5,7 @@ SMODS.Booster {
     cost = 0,
     atlas = 'boosters',
     pos = { x = 1, y = 0 },
-    config = { extra = 5, choose = 1 },
+    config = { extra = 5, choose = 1, free = true },
     group_key = "k_buffoon_pack", -- Delete this if you're using `group_name` in `loc_txt`
     no_collection = function()
         return CardSleeves == nil
@@ -29,11 +29,3 @@ SMODS.Booster {
         return { set = "Joker", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "buf" }
     end,
 }
-
-local set_cost_value_ref = Card.set_cost_value
-Card.set_cost_value = function(self)
-    set_cost_value_ref(self)
-    if string.find(self.config.center.key, "slfa_buffoon_fools") then
-        self.cost = 0
-    end
-end

@@ -31,7 +31,7 @@ SMODS.Joker {
                 end
             end
 
-            if card.ability.extra.h_size == old_h_size then return false end
+            if card.ability.extra.h_size == old_h_size then return nil, true end
             return {
                 message = localize { type = 'variable', key = 'a_handsize', vars = { card.ability.extra.h_size - old_h_size } },
                 func = function() -- This is for timing purposes, this goes after the dollar modification

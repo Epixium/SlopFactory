@@ -1,4 +1,4 @@
-SMODS.Sound { key = 'showmeyourpower', path = 'showmeyourpower.ogg' }
+SMODS.Sound { key = 'showmeyourpower', path = 'showmeyourpower.ogg', pitch = 1 }
 
 SMODS.Joker {
     key = 'base_power',
@@ -23,6 +23,8 @@ SMODS.Joker {
                     message = localize('k_slfa_showmeyourpower_ex'),
                     colour = G.C.BLACK,
                     sound = 'slfa_showmeyourpower',
+                    pitch = 1.1,
+                    volume = 1,
                     func = function() -- This is for timing purposes, it runs after the message
                         SMODS.Scoring_Parameters.chips:modify(card.ability.extra.chips)
                         SMODS.Scoring_Parameters.mult:modify(SMODS.get_scoring_parameter('mult', false) * card.ability.extra.Xmult)

@@ -82,7 +82,7 @@ function SlopFactory.change_joker_center(card, center)
         card.T.h = card.T.h * (center.display_size.h or 95) / 95
     end
     print("step 5")
-    card:add_to_deck()
+    card:add_to_deck(nil, true)
     print("step 6")
 
     card:start_materialize()

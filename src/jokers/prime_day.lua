@@ -33,6 +33,7 @@ SMODS.Joker {
                     end
                 }
             end
+            return nil, true -- jokah retriggah
         end
     end,
     joker_display_def = function(JokerDisplay)

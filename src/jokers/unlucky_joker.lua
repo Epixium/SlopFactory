@@ -35,6 +35,7 @@ SMODS.Joker {
                     scalar_value = 'chips_gain',
                 })
             end
+            return nil, true -- jokah retriggah
         end
         if context.joker_main then
             return {

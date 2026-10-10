@@ -74,7 +74,8 @@ SMODS.Joker {
                         end
                     }))
                     return true
-                end)
+                end),
+                no_retrigger = true
             }
         end
         if context.setting_blind and not context.blueprint then

@@ -1,0 +1,28 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+# ADD TO DECK
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+function Card:add_to_deck(from_debuff)
+'''
+position = 'at'
+payload = '''
+function Card:add_to_deck(from_debuff, from_reroll)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+if not from_debuff and G.hand then
+'''
+position = 'at'
+payload = '''
+if not from_debuff and not from_reroll and G.hand then
+'''
+match_indent = true

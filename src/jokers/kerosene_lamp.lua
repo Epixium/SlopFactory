@@ -64,6 +64,7 @@ SMODS.Joker {
                         end
                     end]]
                 end
+                return nil, true -- jokah retriggah
             end
         end
     end,

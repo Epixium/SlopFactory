@@ -60,7 +60,7 @@ if JokerDisplay then
             return { }
         end,
         retrigger_joker_function = function(card)
-            return G.P_CENTERS[card.edition.key].config.repetitions
+            return card.edition.repetitions
         end
     }
 end

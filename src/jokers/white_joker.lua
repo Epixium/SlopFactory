@@ -37,7 +37,8 @@ SMODS.Joker {
             if debuffed_any then
                 return {
                     message = localize('k_slfa_debuffed_ex'),
-                    colour = G.C.RED
+                    colour = G.C.RED,
+                    no_retrigger = true
                 }
             end
         end

@@ -21,7 +21,7 @@ SMODS.Edition {
         if card.ability.set == 'Joker' then
             if context.skip_blind then
                 local tags = {}
-                for _ = 1, card.edition.extra.config.tags do
+                for _ = 1, card.edition.extra.tags do
                     tags[#tags+1] = { key = SMODS.poll_object{ type = "Tag", seed = "slfa_fresh" }, "Small" }
                 end
                 return {

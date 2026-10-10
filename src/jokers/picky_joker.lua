@@ -42,6 +42,7 @@ SMODS.Joker {
                     colour = G.C.RED,
                 }
             end
+            return nil, true -- jokah retriggah
         end
         if context.joker_main then
             return {

@@ -104,10 +104,10 @@ return {
             j_slfa_coupon_book = {
                 name = "Coupon Book",
                 text = {
-                    "Earn {C:money}$#1#{} at end of",
-                    "round per {C:attention}Voucher{}",
-                    "redeemed this run",
-                    "{C:inactive}(Currently {C:money}$#2#{C:inactive})"
+                    "All cards and packs",
+                    "in shop are {C:attention}#1#%{} off per",
+                    "{C:attention}Voucher{} redeemed this ante",
+                    "{C:inactive}(Currently {C:attention}#2#%{C:inactive})"
                 }
             },
             j_slfa_frilly_joker = {

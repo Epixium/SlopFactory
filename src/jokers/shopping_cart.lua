@@ -32,6 +32,7 @@ SMODS.Joker {
                     end,
                 })
                 card.ability.extra.is_active = false
+                return nil, true -- jokah retriggah
             end
         end
         if context.joker_main then

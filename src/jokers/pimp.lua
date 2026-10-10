@@ -51,6 +51,7 @@ SMODS.Joker {
                     ref_value = "mult",
                     scalar_value = "mult_gain"
                 })
+                return nil, true -- jokah retriggah
             end
         end
         if context.joker_main then

@@ -77,17 +77,17 @@ SMODS.Joker {
         local left_joker, right_joker = get_side_jokers(card)
         --if not left_joker or not right_joker or not left_joker.config.center.blueprint_compat then return end
         local ret = SMODS.blueprint_effect(right_joker, left_joker, context)
-        if ret then
-            ret.colour = G.C.BLUE
-            ret.message_card = right_joker
-            return ret
-        end
         if context.post_trigger and context.other_card == right_joker then
             EMPTY(context.other_ret)
         end
         if context.selling_card and context.card == right_joker then
             right_joker:remove_from_deck() -- manual style
             card.ability.overridden = nil
+        end
+        if ret then
+            ret.colour = G.C.BLUE
+            ret.message_card = right_joker
+            return ret
         end
         
     end,

@@ -20,6 +20,7 @@ SMODS.Joker {
                 ref_value = 'Xmult',
                 scalar_value = 'Xmult_gain'
             })
+            return nil, true -- jokah retriggah
         end
         if context.selling_card and context.card.ability.consumeable and card.ability.extra.Xmult > 1 and not context.blueprint then
             SMODS.reset_card(card, {

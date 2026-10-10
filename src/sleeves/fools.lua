@@ -40,9 +40,7 @@ if CardSleeves then
         if G.GAME.selected_back and G.GAME.selected_back.effect.center.key == 'b_slfa_fools' and G.GAME.selected_sleeve == 'sleeve_slfa_fools' then
             local sleeve = CardSleeves.Sleeve:get_obj(G.GAME.selected_sleeve)
             if sleeve and sleeve.config and sleeve.config.price_hike then
-                self.cost = math.floor(self.cost * (1 +
-                    sleeve.config.price_hike
-                    / 100))
+                self.cost = self.cost + math.floor((self.base_cost + self.extra_cost + 0.5)*sleeve.config.price_hike/100)
             end
         end
     end

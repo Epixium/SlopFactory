@@ -23,6 +23,7 @@ SMODS.Joker {
                     message = localize('k_slfa_plus_card_slot'),
                 }
             end
+            return nil, true -- jokah retriggah
         end
         if context.ending_shop and card.ability.extra.card_slots ~= 0 then
             change_shop_size(-card.ability.extra.card_slots)

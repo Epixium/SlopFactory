@@ -29,6 +29,7 @@ SMODS.Joker {
                     ref_value = "chips",
                     scalar_value = "chips_gain"
                 })
+                return nil, true -- jokah retriggah
             end
             if context.after then
                 card.ability.extra.hands_left = card.ability.extra.hands_left - 1

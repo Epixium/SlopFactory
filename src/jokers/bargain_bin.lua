@@ -50,6 +50,5 @@ Card.set_cost_value = function(self)
         for _, joker in ipairs(bins) do
             self.cost = self.cost - joker.ability.extra.dollars
         end
-        self.cost = math.max(self.cost, 0)
     end
 end

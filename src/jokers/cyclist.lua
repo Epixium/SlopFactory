@@ -30,7 +30,7 @@ SMODS.Joker {
                         scalar_value = 'scaling'
                     })
                     card.ability.extra.last_hand_disp = context.scoring_name
-                    return
+                    return nil, true -- jokah retriggah
                 end
             end
         end

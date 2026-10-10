@@ -32,6 +32,7 @@ SMODS.Joker {
                     no_message = true
                 })
             end
+            return nil, true -- jokah retriggah
         end
         if context.after and not context.blueprint and card.ability.extra.cards_left <= 0 then
             SMODS.destroy_cards(card, nil, nil, true)
