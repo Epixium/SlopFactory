@@ -6,6 +6,7 @@ SMODS.Joker {
         x = 2,
         y = 0
     },
+    pixel_size = { w = 61 },
     rarity = 1,
     cost = 5,
     attributes = { 'scaling', 'economy', 'shop' },

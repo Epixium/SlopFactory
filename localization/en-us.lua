@@ -524,6 +524,29 @@ return {
                 },
             }
         },
+        Voucher = {
+            v_slfa_bongcloud = {
+                name = "Bongcloud",
+                text = {
+                    "{C:red}-#1#{} hand size??",
+                    "Restock {C:attention}Vouchers{}"
+                }
+            },
+            v_slfa_brilliancy = {
+                name = "Brilliancy",
+                text = {
+                    "{C:attention}+#1#{} hand size",
+                    "{C:attention}+#2#{} Voucher slot",
+                    "Vouchers restock",
+                    "{C:attention}every shop{}"
+                },
+                unlock = {
+                    "Redeem {C:voucher}Bongcloud{}",
+                    "{C:attention}#1#{} total time",
+                    "{C:inactive}(#2#)",
+                },
+            },
+        },
         Edition = {
             e_slfa_megaflash = {
                 name = "Megaflash",

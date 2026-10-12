@@ -11,7 +11,8 @@ SMODS.Edition {
     sound = { sound = 'slfa_fresh', per = 1.04, vol = 1.02 },
     attributes = { 'skip', 'tags', },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.edition.extra.tags, card.edition.extra.hands },
+        return { vars = (card.edition.extra and { card.edition.extra.tags, card.edition.extra.hands }
+                or {G.P_CENTERS['e_slfa_fresh'].config.extra.tags, G.P_CENTERS['e_slfa_fresh'].config.extra.hands} ),
             key = SMODS.is_playing_card(card) and self.key .. "_playing_card" or self.key }
     end,
     get_weight = function(self)

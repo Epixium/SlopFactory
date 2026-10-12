@@ -11,7 +11,7 @@ SMODS.Edition {
     sound = { sound = 'slfa_halftone', per = 1.01, vol = 1.05 },
     attributes = { 'discard_limit' },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.edition.extra.discard_limit },
+        return { vars = { card.edition.extra and card.edition.discard_limit or G.P_CENTERS['e_slfa_halftone'].config.extra.discard_limit },
                 key = SMODS.is_playing_card(card) and self.key .. "_playing_card" or self.key }
     end,
     get_weight = function(self)

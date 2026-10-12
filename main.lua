@@ -68,6 +68,13 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+    key = 'vouchers',
+    path = 'vouchers.png',
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas {
     key = 'tags',
     path = 'tags.png',
     px = 34,
@@ -96,6 +103,7 @@ SlopFactory.load_src('editions')
 SlopFactory.load_src('tarots')
 SlopFactory.load_src('spectrals')
 SlopFactory.load_src('boosters')
+SlopFactory.load_src('vouchers')
 SlopFactory.load_src('tags')
 SlopFactory.load_src('backs')
 if next(SMODS.find_mod('CardSleeves')) then SlopFactory.load_src('sleeves') end
