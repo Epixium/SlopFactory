@@ -1,0 +1,71 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+# make blue seal account for multiple planets
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+    if v.config.hand_type == G.GAME.last_hand_played then
+        _planet = v.key
+    end
+end
+'''
+position = 'at'
+payload = '''
+local _planets = {}
+for _, v in ipairs(G.P_CENTER_POOLS.Planet) do
+    if v.config.hand_type == G.GAME.last_hand_played and (not v.in_pool or v:in_pool()) then
+        _planets[#_planets+1] = v.key
+    end
+end
+_planet = SMODS.poll_object({ pool = _planets, seed = 'slfa_blue_seal_planet_choice' })
+'''
+match_indent = true
+
+# if paperback exists, fix its planet key system too
+# the old one assumes that each hand has one planet
+[[patches]]
+[patches.pattern]
+target = '=[SMODS paperback "utilities/misc_functions.lua"]'
+pattern = '''
+for _, v in ipairs(G.P_CENTER_POOLS.Planet) do
+    if v.config and v.config.hand_type then
+        local hand = G.GAME.hands[v.config.hand_type]
+
+        if hand and hand.visible then
+            hands[#hands + 1] = {
+                key = v.config.hand_type,
+                hand = hand,
+                planet_key = v.key
+            }
+        end
+    end
+end
+'''
+position = 'at'
+payload = '''
+local planet_hands = {}
+-- loop through all the planets and assign them to their hands
+for _, v in ipairs(G.P_CENTER_POOLS.Planet) do
+    if v.config and v.config.hand_type and (not v.in_pool or v:in_pool()) then
+        planet_hands[v.config.hand_type] = planet_hands[v.config.hand_type] or {}
+
+        local hand = planet_hands[v.config.hand_type]
+        hand[#hand+1] = v.key
+    end
+end
+-- NOW, set up the planet table
+for hand_type, hand in pairs(G.GAME.hands) do
+    if hand.visible then
+        hands[#hands + 1] = {
+            key = hand_type,
+            hand = hand,
+            planet_key = SMODS.poll_object({ pool = planet_hands[hand_type], seed = 'slfa_paperback_planet_choice' })
+        }
+    end
+end
+'''
+match_indent = true

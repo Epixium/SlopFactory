@@ -66,3 +66,15 @@ SMODS.Voucher {
             G.PROFILES[G.SETTINGS.profile].voucher_usage['v_slfa_bongcloud'].count >= 1
     end,
 }
+
+local get_next_voucher_key_ref = get_next_voucher_key
+function get_next_voucher_key(_from_tag)
+    local ret = get_next_voucher_key_ref(_from_tag)
+    if ret == 'v_slfa_brilliancy' or not G.GAME.used_vouchers.v_slfa_bongcloud or G.GAME.used_vouchers.v_slfa_brilliancy then
+        return ret
+    end
+    if pseudorandom(pseudoseed('v_slfa_brilliancy_replace')) < 1/5 then
+        ret = 'v_slfa_brilliancy'
+    end
+    return ret
+end

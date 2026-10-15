@@ -228,7 +228,7 @@ return {
             j_slfa_prime_day = {
                 name = "Prime Day",
                 text = {
-                    "Each played {C:attention}2{}, {C:attention}3{},",
+                    "Each played {C:attention}2{}, {C:attention}#2#{},",
                     "{C:attention}5{}, or {C:attention}7{} has a {C:green}#1# in #2#{}",
                     "chance to create a",
                     "free {C:attention}#3#{}",
@@ -514,6 +514,164 @@ return {
                 }
             }
         },
+        Planet = {
+            c_slfa_dune_fields = {
+                name = "Dune Fields",
+                text={
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{X:chips,C:white} X#3# {} {C:inactive}(+#4#){} Chips",
+                    "and {C:mult}-#5#{} Mult",
+                },
+                unlock = {
+                    "Get {C:attention}#1#{}",
+                    "to level {C:attention}#2#"
+                },
+            },
+            c_slfa_caloris = {
+                name = "Caloris",
+                text={
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{X:chips,C:white} X#3# {} {C:inactive}(+#4#){} Chips",
+                    "and {C:mult}-#5#{} Mult",
+                },
+                unlock = {
+                    "Get {C:attention}#1#{}",
+                    "to level {C:attention}#2#"
+                },
+            },
+            c_slfa_dark_spot = {
+                name = "Dark Spot",
+                text={
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{X:chips,C:white} X#3# {} {C:inactive}(+#4#){} Chips",
+                    "and {C:mult}-#5#{} Mult",
+                },
+                unlock = {
+                    "Get {C:attention}#1#{}",
+                    "to level {C:attention}#2#"
+                },
+            },
+            c_slfa_aphrodite = {
+                name = "Aphrodite",
+                text={
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{X:chips,C:white} X#3# {} {C:inactive}(+#4#){} Chips",
+                    "and {C:mult}-#5#{} Mult",
+                },
+                unlock = {
+                    "Get {C:attention}#1#{}",
+                    "to level {C:attention}#2#"
+                },
+            },
+            c_slfa_hexagon = {
+                name = "Hexagon",
+                text={
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{X:chips,C:white} X#3# {} {C:inactive}(+#4#){} Chips",
+                    "and {C:mult}-#5#{} Mult",
+                },
+                unlock = {
+                    "Get {C:attention}#1#{}",
+                    "to level {C:attention}#2#"
+                },
+            },
+            c_slfa_red_spot = {
+                name = "Red Spot",
+                text={
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{X:chips,C:white} X#3# {} {C:inactive}(+#4#){} Chips",
+                    "and {C:mult}-#5#{} Mult",
+                },
+                unlock = {
+                    "Get {C:attention}#1#{}",
+                    "to level {C:attention}#2#"
+                },
+            },
+            c_slfa_mariana = {
+                name = "Mariana",
+                text={
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{X:chips,C:white} X#3# {} {C:inactive}(+#4#){} Chips",
+                    "and {C:mult}-#5#{} Mult",
+                },
+                unlock = {
+                    "Get {C:attention}#1#{}",
+                    "to level {C:attention}#2#"
+                },
+            },
+            c_slfa_olympus = {
+                name = "Olympus",
+                text={
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{X:chips,C:white} X#3# {} {C:inactive}(+#4#){} Chips",
+                    "and {C:mult}-#5#{} Mult",
+                },
+                unlock = {
+                    "Get {C:attention}#1#{}",
+                    "to level {C:attention}#2#"
+                },
+            },
+            c_slfa_iris = {
+                name = "Iris",
+                text={
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{X:chips,C:white} X#3# {} {C:inactive}(+#4#){} Chips",
+                    "and {C:mult}-#5#{} Mult",
+                },
+                unlock = {
+                    "Get {C:attention}#1#{}",
+                    "to level {C:attention}#2#"
+                },
+            },
+            c_slfa_cross = {
+                name = "Cross",
+                text={
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{X:chips,C:white} X#3# {} {C:inactive}(+#4#){} Chips",
+                    "and {C:mult}-#5#{} Mult",
+                },
+                unlock = {
+                    "Get {C:attention}#1#{}",
+                    "to level {C:attention}#2#"
+                },
+            },
+            c_slfa_bright_spot = {
+                name = "Bright Spot",
+                text={
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{X:chips,C:white} X#3# {} {C:inactive}(+#4#){} Chips",
+                    "and {C:mult}-#5#{} Mult",
+                },
+                unlock = {
+                    "Get {C:attention}#1#{}",
+                    "to level {C:attention}#2#"
+                },
+            },
+            c_slfa_penitentes = {
+                name = "Penitentes",
+                text={
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{X:chips,C:white} X#3# {} {C:inactive}(+#4#){} Chips",
+                    "and {C:mult}-#5#{} Mult",
+                },
+                unlock = {
+                    "Get {C:attention}#1#{}",
+                    "to level {C:attention}#2#"
+                },
+            }
+        },
         Spectral = {
             c_slfa_cement = {
                 name = "Cement",
@@ -650,6 +808,8 @@ return {
         },
         dictionary = {
             k_chips = "Chips",
+            k_slfa_formation = "Formation",
+            k_slfa_formation_q = "Formation?",
             k_slfa_discarded_ex = "Discarded!",
             k_slfa_downgrade_ex = "Downgrade!",
             k_slfa_debuffed_ex = "Debuffed!",

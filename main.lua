@@ -13,7 +13,8 @@ SlopFactory = {
 SMODS.current_mod.optional_features = {
     quantum_enhancements = true,
     post_trigger = true,
-    retrigger_joker = true
+    retrigger_joker = true,
+    object_weights = true
 }
 
 --#region Atlases
@@ -101,6 +102,7 @@ assert(SMODS.load_file("src/joker_order.lua"))()
 --SlopFactory.load_src('jokers')
 SlopFactory.load_src('editions')
 SlopFactory.load_src('tarots')
+SlopFactory.load_src('planets')
 SlopFactory.load_src('spectrals')
 SlopFactory.load_src('boosters')
 SlopFactory.load_src('vouchers')
